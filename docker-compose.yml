@@ -1,0 +1,22 @@
+version: '2.3'
+
+volumes:
+  postgresvol14:
+
+networks:
+  jordan_network:
+
+services:
+  postgres:
+    image: postgres:14.1-alpine
+    networks:
+      - jordan_network
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: jordan_rocks
+      PGDATA: /pgdata
+    volumes:
+    - /home/jordanm/Documents/GitHub/SWE4103-Team-Project/postgres/pgconf:/pgconf
+    - postgresvol14:/pgdata
+    ports:
+      - "5432:5432"
