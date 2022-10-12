@@ -1,0 +1,110 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  html {
+    font-family: 'Roboto Serif', serif;
+  }
+  body {
+    background: #eee;
+    padding: 0 16px;
+  }
+  
+  header {
+    font-family: 'Kanit', sans-serif;
+    background-color: #05A;
+    margin: auto -16px;
+    padding: 4px 32px;
+  }
+  
+  header h2 {
+    color: #fff;
+    font-weight: 200;
+  }
+
+  .login-header {
+    text-align: center;
+  }
+
+  .login-button {
+    font-family: 'Kanit', sans-serif;
+    background-color: #05A;
+    color: #fff;
+    font-size: larger;
+    width: 8rem;
+    height: 2.5rem;
+
+    border-color: #05A;
+    border-radius: 0.5rem;
+  }
+
+  .login-button:hover {
+    background-color: rgb(1, 70, 139);
+    border-color: rgb(1, 70, 139);
+  }
+
+  .error {
+    padding-bottom: 1rem;
+    color: red;
+  }
+
+  .login-success {
+    text-align: center;
+    font-size: larger;
+    padding-top: 2rem;
+  }
+
+  .padding-top-64 {
+    padding-top: 4rem;
+  }
+
+  .padding-top-128 {
+    padding-top: 8rem;
+  }
+
+  .padding-bottom-16 {
+    padding-bottom: 1rem;
+  }
+
+  .padding-bottom-24 {
+    padding-bottom: 1.5rem;
+  }
+
+  .padding-bottom-32 {
+    padding-bottom: 2rem;
+  }
+  
+  footer {
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+  }
+  
+  footer p {
+    color: #ccc;
+  }
+  
+  form {
+    position: relative;
+    width: 480px;
+    margin: 30px auto 20px auto;
+    background: #fff;
+    padding: 2rem 2rem 1rem 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 5px rgb(138, 137, 137);
+  }
+  form input,
+  form textarea {
+    width: 100%;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    outline: none;
+    font-size: 1.2em;
+    font-family: inherit;
+    resize: none;
+    margin: 1rem auto;
+  }
+  
