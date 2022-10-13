@@ -107,4 +107,12 @@
     resize: none;
     margin: 1rem auto;
   }
+
+  .upload {
+    text-align: center;
+  }
+
+  .file{
+    padding-top: 1rem;
+  }
   
