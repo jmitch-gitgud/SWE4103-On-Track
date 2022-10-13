@@ -11,6 +11,8 @@ export default function App() {
         <Routes>
           <Route path="/">
             <Route index element={<OA />} />
+            <Route path="home" element={<Home />} />
+            <Route path="login" element={<Login />} />
           </Route>
         </Routes>
       </BrowserRouter>
