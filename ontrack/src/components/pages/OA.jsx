@@ -14,9 +14,15 @@ class OA extends Component {
     };
 
     onFileUpload = () => {
-        console.log("hello dawg");
-        
-        //send file to backend
+        const data = new FormData() 
+        data.append('file', this.state.selectedFile)
+        console.log(this.state.selectedFile);
+        axios.post("http://localhost:8000", data, {
+            
+        })
+        .then(res => {
+            console.log(res.statusText)
+        })
     }
 
     delete1 = () => {
@@ -24,7 +30,7 @@ class OA extends Component {
         this.setState({
             inputKey1: randomString
         })
-    }
+    };
 
     
     delete2 = () => {
@@ -32,7 +38,7 @@ class OA extends Component {
         this.setState({
             inputKey2: randomString
         })
-    }
+    };
     
     
     render(){
