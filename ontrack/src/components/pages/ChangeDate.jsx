@@ -12,7 +12,16 @@ function ChangeDate(){
   const [names, setNames] = useState([]);
 
   const handleSelect=(e)=>{
-    alert(e);
+    fetch(`/user?staff_id=${e}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    }).then(response => {
+      return response.json();
+    }).then(data =>
+      {
+        console.log(data)
+        //alert(names[0].first_name)
+      })
   }
 
   
@@ -86,7 +95,7 @@ function ChangeDate(){
         <Dropdown.Menu as={CustomMenu}>
           
           {names.map(stuff =>(
-            <Dropdown.Item eventKey={stuff.first_name + " " + stuff.last_name}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
+            <Dropdown.Item eventKey={stuff.staff_id}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
           ))}
           
         </Dropdown.Menu>
