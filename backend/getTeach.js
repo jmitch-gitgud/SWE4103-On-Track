@@ -23,13 +23,13 @@ const PORT = 3001;
 
 app.route('/user')
 .get((req, res, next) => {
-  const text = 'SELECT * FROM fulltime_teacher NATURAL JOIN staff'
+  const text = 'SELECT * FROM "SWE4103_Schema".fulltime_teacher NATURAL JOIN "SWE4103_Schema".staff'
 
   const client = new Client({
   host: 'localhost',
   user: 'postgres',
-  database: 'SWE4103_db',
-  password: 'SWE4103',
+  database: 'postgres',
+  password: 'postgres',
   port: 5432,
 });
 
@@ -51,8 +51,35 @@ app.route('/user')
   //client.close();
 })
 .post((req, res, next) => {
-  console.log("post")
-res.send('POST request called');
+  
+  let staff_id = req.query.staff_id
+  console.log(staff_id)
+  const text = 'SELECT * FROM "SWE4103_Schema".work_abscense WHERE staff_id = ' + staff_id
+
+  const client = new Client({
+    host: 'localhost',
+    user: 'postgres',
+    database: 'postgres',
+    password: 'postgres',
+    port: 5432,
+  });
+  
+    client.connect(err => {
+
+      if (err) {
+        console.error('connection error', err.stack)
+      } else {
+        client.query(text, (err, pgres) => {
+          if (err) {
+              res.writeHead(404, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({status: "Invalid credentials"}));
+          } else {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({names : pgres.rows}));
+            }
+          });
+            }
+    })
 })
 .all((req, res, next) => {
   console.log("all")
