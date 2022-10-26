@@ -3,13 +3,12 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { FormControl } from "react-bootstrap";
 //import Form from 'react-bootstrap/Form';
 //import { render } from 'react-dom';
+import Calendar from '../Calendar'
 
 function ChangeDate(){
 
-
-  var ex = ["urmom", "urdad"];
-
   const [names, setNames] = useState([]);
+  const [data, setData] = useState([]);
 
   const handleSelect=(e)=>{
     fetch(`/user?staff_id=${e}`, {
@@ -19,8 +18,7 @@ function ChangeDate(){
       return response.json();
     }).then(data =>
       {
-        console.log(data)
-        //alert(names[0].first_name)
+        setData(data);
       })
   }
 
@@ -34,7 +32,6 @@ function ChangeDate(){
     }).then(data =>
       {
         setNames(data.names)
-        //alert(names[0].first_name)
       })
   }
 
@@ -81,13 +78,9 @@ function ChangeDate(){
     }
   );
 
-
-  //handleToggle()
-  //alert(names[0])
-
   return (
     <div>
-      <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
+      <Dropdown style={{ paddingLeft: '200px', paddingTop: '50px'}} onSelect={handleSelect} onToggle={handleToggle}>
         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
           Select Teacher
         </Dropdown.Toggle>
@@ -99,6 +92,7 @@ function ChangeDate(){
           ))}
           
         </Dropdown.Menu>
+        <Calendar data= {data} />
       </Dropdown>
     </div>
   );
