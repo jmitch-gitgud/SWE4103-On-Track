@@ -20,19 +20,21 @@ app.use(function (req, res, next) {
 });
 
 server.listen(listenPort, "127.0.0.1");
+let rightPage = "initial";
 
 app.route('/check').post((req, res) => {
   username = req.body.Username;
   password = req.body.Password;
 
-  const text = 'SELECT * FROM "SWE4103_Schema"."User" WHERE "Username" = $1 AND "Password" = $2'
+  const text = 'SELECT role_id FROM "SWE4103_Schema"."staff" WHERE "username" = $1 AND "password" = $2'
   const values = [username, password]
+  let rightPage = "initial"
 
   const client = new Client({
   host: '127.0.0.1',
   user: 'postgres',
   database: 'SWE4103_db',
-  password: 'jordan_rocks',
+  password: 'ONtrack!44',
   port: 5432,
 });
 
@@ -51,11 +53,37 @@ app.route('/check').post((req, res) => {
           res.writeHead(404, { "Content-Type": "application/json" });
           res.end(JSON.stringify({status: "Invalid credentials"}));
           } else {
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({status: "Logged in"}));
+            if(pgres.rows[0].role_id == 1)
+            {                                  
+               rightPage =  "/fulltime";                                  
+            }
+
+            if(pgres.rows[0].role_id == 2)
+            {
+               rightPage =  "/supply";
+            }
+
+            if(pgres.rows[0].role_id == 3)
+            {
+               rightPage = "/oa";
+            }
+
+            if(pgres.rows[0].role_id == 4)
+            {
+               rightPage = "/vp";
+            }
+
+            if(pgres.rows[0].role_id == 5)
+            {
+               rightPage =  "/operations";
+            }
+
+
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({status: "Logged in", page: rightPage}));
             }
           }
         });
-          }
+      }
   })
 }); 

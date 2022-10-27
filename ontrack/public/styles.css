@@ -39,10 +39,20 @@
     border-radius: 0.5rem;
   }
 
+  .logout-button {
+    font-family: 'Kanit', sans-serif;
+    float: right;
+    border-color:rgb(1, 70, 139);
+    background-color: #05A;
+    color: #fff;
+    padding: 0.2rem;
+  }
+
   .login-button:hover {
     background-color: rgb(1, 70, 139);
     border-color: rgb(1, 70, 139);
   }
+  
 
   .error {
     padding-bottom: 1rem;
@@ -61,6 +71,10 @@
 
   .padding-top-128 {
     padding-top: 8rem;
+  }
+
+  .padding-top-test {
+    padding-top: 2rem;
   }
 
   .padding-bottom-16 {
@@ -114,5 +128,38 @@
 
   .file{
     padding-top: 1rem;
+  }
+
+  .eye-button {
+    text-align: center;
+  }
+
+  .container {
+    position: relative;
+    width: 45%;
+  }
+
+  .container img {
+    width: 95%;
+    height: auto;
+  }
+
+  .container .button {
+    position: absolute;
+    top: 55%;
+    left: 45%;
+    transform: translate(-55%, -45%);
+    -ms-transform: translate(-55%, -45%);
+    background-color: #f5f5f5;
+    color: grey;
+    font-size: 20px;
+    padding: 9px 19px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .container .btn:hover {
+    background-color: blue;
   }
   
