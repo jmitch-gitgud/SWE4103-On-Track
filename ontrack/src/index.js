@@ -8,6 +8,7 @@ import Operations from "./components/pages/Operations";
 import Supply from "./components/pages/Supply";
 import FullTime from "./components/pages/FullTime";
 import VP from "./components/pages/VP";
+import ChangeDate from "./components/pages/ChangeDate";
 
 export default function App() {
     return (
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="supply" element={<Supply />} />
             <Route path="fulltime" element={<FullTime />} />
             <Route path="vp" element={<VP />} />
+            <Route path="changeDate" element={<ChangeDate />} />
           </Route>
         </Routes>
       </BrowserRouter>
