@@ -4,6 +4,9 @@ const app = express();
 var http = require("http");
 const {Client} = require("pg");
 var server = http.createServer(app);
+let ReportWorkAbsences = require("./ReportWorkAbsences.js");
+let GetSheetNames = require("./GetSheetNames.js");
+let tester = require("./tester.js");
 
 const listenPort = 3001;
 
@@ -25,7 +28,7 @@ app.route('/check').post((req, res) => {
   username = req.body.Username;
   password = req.body.Password;
 
-  const text = 'SELECT * FROM "SWE4103_Schema"."User" WHERE "Username" = $1 AND "Password" = $2'
+  const text = 'SELECT * FROM staff WHERE username = $1 AND password = $2'
   const values = [username, password]
 
   const client = new Client({
@@ -122,4 +125,59 @@ app.route('/user')
 .all((req, res, next) => {
   console.log("all")
 res.send('Other requests called');
-})
+}); 
+
+app.route('/SheetNames').post((req, res) => {
+  //console.log(req.body.filename);
+  let filename = req.body.filename;
+
+  let name = GetSheetNames.GetSheetNames(filename);
+
+  if(name === [])
+  {
+    res.writeHead(395, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "Invalid or Empty File"}));
+  }
+  else
+  {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "Success", sheets: name}));
+  }
+});
+
+
+app.route('/WorkAbs').post((req, res) => {
+  let filename = req.body.filename;
+  let index = req.body.sheetIndex;
+
+  let result = ReportWorkAbsences.ReportWorkAbsences(filename, index);
+
+  if(result === "Invalid File Type Given")
+  {
+    res.writeHead(395, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "Invalid File Type Given"}));
+  }
+  else
+  {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "File Successfully Inserted"}));
+  }
+});
+
+
+app.route('/SendTerm').post((req, res) => {
+  let filename = req.body.filename;
+
+  let result = tester.SendTermSchedule(filename);
+
+  if(result === "Invalid File Type Given")
+  {
+    res.writeHead(395, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "Invalid File Type Given"}));
+  }
+  else
+  {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "File Successfully Inserted"}));
+  }
+}) ;
