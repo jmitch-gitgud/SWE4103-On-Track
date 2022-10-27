@@ -170,9 +170,9 @@ class OA extends Component {
                     </Link>
                 </div>
                 <div className="login-header padding-top-64">
-                    <h1 className="padding-bottom-24">Welcome Office Administrator</h1>               
+                    <h1 className="padding-bottom-16">Welcome Office Administrator</h1>               
                     
-                    <h3 className="upload padding-top-64">Upload Work Related Absences</h3>
+                    <h3 className="upload padding-top-test">Upload Work Related Absences</h3>
                     <input className="file" type="file" key={this.state.inputKey1} onChange={this.onAbsenceFile} />
                     <button onClick={this.onAbsenceUpload}>Upload</button>
                     &nbsp;
@@ -182,7 +182,7 @@ class OA extends Component {
                         <option value = {option.value}>{option.label}</option>
                     ))}
                     </select>
-                    <h3 className="upload padding-top-64">Upload Term Schedule</h3>
+                    <h3 className="upload padding-top-test">Upload Term Schedule</h3>
                     <input className="file" type="file" key={this.state.inputKey2} onChange={this.onScheduleFile} />
                     <button onClick={this.onScheduleUpload}>Upload</button>
                     &nbsp;

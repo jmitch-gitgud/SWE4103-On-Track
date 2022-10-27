@@ -1,6 +1,7 @@
 const reader = require("xlsx");
 const Pool = require("pg").Pool;
-  
+
+
 function SendTermSchedule(filename)
 {
     if (filename !== undefined)
@@ -25,8 +26,8 @@ function SendTermSchedule(filename)
         const pool = new Pool({
           host: '127.0.0.1',
           user: "postgres",
-          database: "postgres",
-          password: "",
+          database: "SWE4103_db",
+          password: "ONtrack!44",
           port: 5432
         });
 
@@ -108,9 +109,8 @@ function SendTermSchedule(filename)
 
 
 exports.SendTermSchedule = SendTermSchedule;
-=======
 
-const file = reader.readFile("term.xlsx");
+const file = reader.readFile("Example_Absences_(Fall_2017-018).xlsx");
   
 let data = [];
   
@@ -130,8 +130,8 @@ data.shift();
 const pool = new Pool({
     host: "localhost",
     user: "postgres",
-    database: "postgres",
-    password: "SWE4103",
+    database: "SWE4103_db",
+    password: "ONtrack!44",
     port: 5432
   });
 
