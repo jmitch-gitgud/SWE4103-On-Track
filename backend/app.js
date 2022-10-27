@@ -32,11 +32,11 @@ app.route('/check').post((req, res) => {
   const values = [username, password]
 
   const client = new Client({
-        host: '127.0.0.1',
-        user: "postgres",
-        database: "postgres",
-        password: "",
-        port: 5432
+  host: '127.0.0.1',
+  user: 'postgres',
+  database: 'postgres',
+  password: 'postgres',
+  port: 5432,
 });
 
   client.connect(err => {
@@ -61,7 +61,71 @@ app.route('/check').post((req, res) => {
         });
           }
   })
-}) ; 
+}); 
+
+app.route('/user')
+.get((req, res, next) => {
+  const text = 'SELECT * FROM "SWE4103_Schema".fulltime_teacher NATURAL JOIN "SWE4103_Schema".staff'
+
+  const client = new Client({
+  host: 'localhost',
+  user: 'postgres',
+  database: 'postgres',
+  password: 'postgres',
+  port: 5432,
+});
+
+  client.connect(err => {
+    if (err) {
+      console.error('connection error', err.stack)
+    } else {
+      client.query(text, (err, pgres) => {
+        if (err) {
+            res.writeHead(404, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({status: "Invalid credentials"}));
+        } else {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({names : pgres.rows}));
+          }
+        });
+          }
+  })
+  //client.close();
+})
+.post((req, res, next) => {
+  
+  let staff_id = req.query.staff_id
+  const text = 'SELECT * FROM "SWE4103_Schema".work_abscense WHERE staff_id = ' + staff_id
+
+  const client = new Client({
+    host: 'localhost',
+    user: 'postgres',
+    database: 'postgres',
+    password: 'postgres',
+    port: 5432,
+  });
+  
+    client.connect(err => {
+
+      if (err) {
+        console.error('connection error', err.stack)
+      } else {
+        client.query(text, (err, pgres) => {
+          if (err) {
+              res.writeHead(404, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({status: "Invalid credentials"}));
+          } else {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({names : pgres.rows}));
+            }
+          });
+            }
+    })
+})
+.all((req, res, next) => {
+  console.log("all")
+res.send('Other requests called');
+}); 
 
 app.route('/SheetNames').post((req, res) => {
   //console.log(req.body.filename);
