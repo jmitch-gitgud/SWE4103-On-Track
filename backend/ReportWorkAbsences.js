@@ -16,7 +16,7 @@ function ReportWorkAbsences(filename, sheetIndex)
         host: '127.0.0.1',
         user: "postgres",
         database: "postgres",
-        password: "",
+        password: "SWE4103",
         port: 5432
       });
 
@@ -58,8 +58,8 @@ function ReportWorkAbsences(filename, sheetIndex)
             }
 
             //Stored Procedure would go here
-            const query = "INSERT INTO work_abscense(Absence_ID, Staff_ID, Period1, " +
-                        "Period2, Period3, Period4, date) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)"
+            const query = "INSERT INTO work_abscense(Absence_ID, Staff_ID,absence_date, Period1, " +
+                        "Period2, Period3, Period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)"
 
             const query2 = "SELECT Staff_ID FROM staff WHERE username = $1"
 
@@ -87,11 +87,12 @@ function ReportWorkAbsences(filename, sheetIndex)
                                             let absenceList = [];
 
                                             absenceList.push(id.staff_id);
+                                            absenceList.push(dateList[j]);
                                             absenceList.push(row[x + 1]);
                                             absenceList.push(row[x + 2]);
                                             absenceList.push(row[x + 3]);
                                             absenceList.push(row[x + 4]);
-                                            absenceList.push(dateList[j]);
+                                            
 
                                             pool.query(query, absenceList, (err, res) => {
                                                 if (err) {

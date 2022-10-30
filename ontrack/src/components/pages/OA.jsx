@@ -37,7 +37,7 @@ class OA extends Component {
             options[0] = ({ label: "Select Sheet", value: '' });
 
             var status;
-            var file = event.target.files[0];
+            var file = event.target.files[0].name;
 
             let data = {filename: file};
 

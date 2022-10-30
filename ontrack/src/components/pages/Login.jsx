@@ -24,7 +24,8 @@ function Login() {
     "Error": "ERROR: looks like something went wrong..."
   };
 
-  const togglePassword = () => {
+  const togglePassword = (event) => {
+    event.preventDefault();
     setPasswordShown(!passwordShown);
   }
   

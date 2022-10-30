@@ -9,6 +9,7 @@ import Supply from "./components/pages/Supply";
 import FullTime from "./components/pages/FullTime";
 import VP from "./components/pages/VP";
 import ChangeDate from "./components/pages/ChangeDate";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
     return (
