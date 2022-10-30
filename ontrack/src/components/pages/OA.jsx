@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
+import { Link } from "react-router-dom";
 
 
 const options = [
@@ -36,7 +37,7 @@ class OA extends Component {
             options[0] = ({ label: "Select Sheet", value: '' });
 
             var status;
-            var file = event.target.files[0];
+            var file = event.target.files[0].name;
 
             let data = {filename: file};
 
@@ -147,7 +148,6 @@ class OA extends Component {
 
         options[0] = { label: "No File Selected", value: '' };
     }
-
     
     deleteScheduleFile = () => {
         let randomString = Math.random().toString(36);
@@ -162,9 +162,17 @@ class OA extends Component {
         return(
             <div>
                 <Header />
+                <div>
+                <Link to="/">
+                    <button className="logout-button" type="button">
+                    Sign Out
+                    </button>
+                    </Link>
+                </div>
                 <div className="login-header padding-top-64">
-                    <h1 className="padding-bottom-24">Welcome Office Administrator</h1>
-                    <h3 className="upload padding-top-64">Upload Work Related Absences</h3>
+                    <h1 className="padding-bottom-16">Welcome Office Administrator</h1>               
+                    
+                    <h3 className="upload padding-top-test">Upload Work Related Absences</h3>
                     <input className="file" type="file" key={this.state.inputKey1} onChange={this.onAbsenceFile} />
                     <button onClick={this.onAbsenceUpload}>Upload</button>
                     &nbsp;
@@ -174,11 +182,15 @@ class OA extends Component {
                         <option value = {option.value}>{option.label}</option>
                     ))}
                     </select>
-                    <h3 className="upload padding-top-64">Upload Term Schedule</h3>
+                    <h3 className="upload padding-top-test">Upload Term Schedule</h3>
                     <input className="file" type="file" key={this.state.inputKey2} onChange={this.onScheduleFile} />
                     <button onClick={this.onScheduleUpload}>Upload</button>
                     &nbsp;
                     <button onClick={this.deleteScheduleFile}>Remove File</button>
+                    <h3 className="upload padding-top-test">View Current Absences</h3>
+                    <Link to="/changeDate">
+                        <button>View</button>
+                    </Link>
                 </div>
                 <Footer />
             </div>

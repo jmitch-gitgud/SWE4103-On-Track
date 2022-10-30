@@ -7,6 +7,7 @@ var server = http.createServer(app);
 
 const listenPort = 3001;
 
+
 app.use(bodyParser.json({limit: '1mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '1mb', extended: true}))
 
@@ -26,11 +27,11 @@ app.route('/user')
   const text = 'SELECT * FROM "SWE4103_Schema".fulltime_teacher NATURAL JOIN "SWE4103_Schema".staff'
 
   const client = new Client({
-  host: 'localhost',
-  user: 'postgres',
-  database: 'postgres',
-  password: 'postgres',
-  port: 5432,
+    host: '127.0.0.1',
+    user: 'postgres',
+    database: 'SWE4103_db',
+    password: 'ONtrack!44',
+    port: 5432,
 });
 
   client.connect(err => {
@@ -57,10 +58,10 @@ app.route('/user')
   const text = 'SELECT * FROM "SWE4103_Schema".work_abscense WHERE staff_id = ' + staff_id
 
   const client = new Client({
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'postgres',
-    database: 'postgres',
-    password: 'postgres',
+    database: 'SWE4103_db',
+    password: 'ONtrack!44',
     port: 5432,
   });
   
@@ -132,4 +133,6 @@ app.route('/check').get((req, res) => {
 */
 
 //server.listen(listenPort "localhost");
+
+
 

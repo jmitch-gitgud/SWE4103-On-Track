@@ -28,14 +28,15 @@ app.route('/check').post((req, res) => {
   username = req.body.Username;
   password = req.body.Password;
 
-  const text = 'SELECT * FROM staff WHERE username = $1 AND password = $2'
+  const text = 'SELECT role_id FROM "staff" WHERE "username" = $1 AND "password" = $2'
   const values = [username, password]
+  let rightPage = "initial"
 
   const client = new Client({
   host: '127.0.0.1',
   user: 'postgres',
-  database: 'postgres',
-  password: 'postgres',
+  database: 'SWE4103_db',
+  password: 'SWE4103',
   port: 5432,
 });
 
@@ -54,26 +55,53 @@ app.route('/check').post((req, res) => {
           res.writeHead(404, { "Content-Type": "application/json" });
           res.end(JSON.stringify({status: "Invalid credentials"}));
           } else {
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({status: "Logged in"}));
+            if(pgres.rows[0].role_id == 1)
+            {                                  
+               rightPage =  "/fulltime";                                  
+            }
+
+            if(pgres.rows[0].role_id == 2)
+            {
+               rightPage =  "/supply";
+            }
+
+            if(pgres.rows[0].role_id == 3)
+            {
+               rightPage = "/oa";
+            }
+
+            if(pgres.rows[0].role_id == 4)
+            {
+               rightPage = "/vp";
+            }
+
+            if(pgres.rows[0].role_id == 5)
+            {
+               rightPage =  "/operations";
+            }
+
+
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({status: "Logged in", page: rightPage}));
             }
           }
         });
-          }
+      }
   })
 }); 
 
+
 app.route('/user')
 .get((req, res, next) => {
-  const text = 'SELECT * FROM "SWE4103_Schema".fulltime_teacher NATURAL JOIN "SWE4103_Schema".staff'
+  const text = 'SELECT * FROM fulltime_teacher NATURAL JOIN staff'
 
   const client = new Client({
-  host: 'localhost',
-  user: 'postgres',
-  database: 'postgres',
-  password: 'postgres',
-  port: 5432,
-});
+    host: '127.0.0.1',
+    user: 'postgres',
+    database: 'SWE4103_db',
+    password: 'SWE4103',
+    port: 5432,
+  });
 
   client.connect(err => {
     if (err) {
@@ -95,13 +123,13 @@ app.route('/user')
 .post((req, res, next) => {
   
   let staff_id = req.query.staff_id
-  const text = 'SELECT * FROM "SWE4103_Schema".work_abscense WHERE staff_id = ' + staff_id
+  const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
 
   const client = new Client({
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'postgres',
-    database: 'postgres',
-    password: 'postgres',
+    database: 'SWE4103_db',
+    password: 'SWE4103',
     port: 5432,
   });
   
@@ -128,7 +156,7 @@ res.send('Other requests called');
 }); 
 
 app.route('/SheetNames').post((req, res) => {
-  //console.log(req.body.filename);
+  console.log(req.body.filename);
   let filename = req.body.filename;
 
   let name = GetSheetNames.GetSheetNames(filename);
@@ -181,3 +209,4 @@ app.route('/SendTerm').post((req, res) => {
     res.end(JSON.stringify({status: "File Successfully Inserted"}));
   }
 }) ;
+

@@ -1,22 +1,22 @@
 version: '2.3'
 
 volumes:
-  postgresvol14:
+  postgresvol15:
 
 networks:
-  jordan_network:
+  carly_network:
 
 services:
   postgres:
     image: postgres:14.1-alpine
     networks:
-      - jordan_network
+      - carly_network
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: jordan_rocks
+      POSTGRES_PASSWORD: ONTrack!44
       PGDATA: /pgdata
     volumes:
-    - /home/jordanm/Documents/GitHub/SWE4103-Team-Project/postgres/pgconf:/pgconf
-    - postgresvol14:/pgdata
+    - /Users/carly/OneDrive/School/2022-2023/SWE4103/SWE4103-On-Track/postgres/pgconf:/pgconf
+    - postgresvol15:/pgdata
     ports:
       - "5432:5432"
