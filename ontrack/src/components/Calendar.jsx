@@ -7,7 +7,6 @@ function Calendar(props) {
 
 const [page, setPage] = useState(0);
 
-
 const handleForward=(e)=>{
   setPage(page + 1)
   populateTable()

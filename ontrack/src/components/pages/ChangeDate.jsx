@@ -101,9 +101,9 @@ function ChangeDate(){
           
         </Dropdown.Menu>
         <Calendar data= {data} />
-        {/* <Link to="/login" state={{ name : names }}>
+        <Link to="/login" state={{ name : names }}>
         <button className = "addAbsenceButton">Add Absence</button>
-        </Link> */}
+        </Link>
       </Dropdown>
       <Footer />
     </div>
