@@ -4,6 +4,10 @@ import { FormControl } from "react-bootstrap";
 //import Form from 'react-bootstrap/Form';
 //import { render } from 'react-dom';
 import Calendar from '../Calendar'
+import { Link } from "react-router-dom";
+import Header from "../Header";
+import Footer from "../Footer";
+import "./ChangeDate.css";
 
 function ChangeDate(){
 
@@ -80,7 +84,11 @@ function ChangeDate(){
 
   return (
     <div>
-      <Dropdown style={{ paddingLeft: '200px', paddingTop: '50px'}} onSelect={handleSelect} onToggle={handleToggle}>
+      <Header />
+      <Link to="/OA">
+        <button>Back</button>
+      </Link>
+      <Dropdown className = "tableSize" onSelect={handleSelect} onToggle={handleToggle}>
         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
           Select Teacher
         </Dropdown.Toggle>
@@ -93,7 +101,11 @@ function ChangeDate(){
           
         </Dropdown.Menu>
         <Calendar data= {data} />
+        {/* <Link to="/login" state={{ name : names }}>
+        <button className = "addAbsenceButton">Add Absence</button>
+        </Link> */}
       </Dropdown>
+      <Footer />
     </div>
   );
 }
