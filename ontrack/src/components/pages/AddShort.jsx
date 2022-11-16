@@ -1,4 +1,4 @@
-import Header from "../Header";
+import Header from "../HeaderSingleDay";
 import Footer from "../Footer";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
@@ -116,6 +116,8 @@ function AddAbs()
 
     return (
         <div>
+            <Header />
+
             PICK DATE<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
             <Dropdown style={{ paddingLeft: '200px', paddingTop: '50px'}} onSelect={handleSelect} onToggle={handleToggle}>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">

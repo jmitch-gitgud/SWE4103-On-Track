@@ -1,4 +1,4 @@
-import Header from "../Header";
+import Header from "../HeaderMultiDay";
 import Footer from "../Footer";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
@@ -93,7 +93,12 @@ function AddAbs()
     }
 
     return (
+
+
+
         <div>
+         <div> <Header /></div>
+
             <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
             <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
             <Dropdown style={{ paddingLeft: '200px', paddingTop: '50px'}} onSelect={handleSelect} onToggle={handleToggle}>

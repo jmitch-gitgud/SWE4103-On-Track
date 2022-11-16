@@ -28,12 +28,12 @@ app.route('/getAbsences')
   const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
 
 
-const client = new Client({
-  host: "localhost",
-  user: "postgres",
-  database: "SWE4103_db",
-  password: "SWE4103",
-  port: 5432
+ const client = new Client({
+  host: '127.0.0.1', 
+  user: 'postgres',
+  database: 'postgres',
+  password: 'Shadow12071207*',
+  port: 5432,
 });
 
   client.connect(err => {

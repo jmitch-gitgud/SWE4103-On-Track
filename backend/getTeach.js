@@ -27,12 +27,12 @@ app.route('/user')
   const text = 'SELECT * FROM fulltime_teacher NATURAL JOIN staff'
 
   const client = new Client({
-    host: '127.0.0.1',
+    host: '127.0.0.1', 
     user: 'postgres',
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
-});
+  });
 
   client.connect(err => {
     if (err) {
@@ -58,10 +58,10 @@ app.route('/user')
   const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
 
   const client = new Client({
-    host: '127.0.0.1',
+    host: '127.0.0.1', 
     user: 'postgres',
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
   });
   
