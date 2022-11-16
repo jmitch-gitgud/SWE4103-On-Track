@@ -7,7 +7,6 @@ var server = http.createServer(app);
 let ReportWorkAbsences = require("./ReportWorkAbsences.js");
 let GetSheetNames = require("./GetSheetNames.js");
 let tester = require("./tester.js");
-
 const listenPort = 3001;
 
 app.use(bodyParser.json({limit: '1mb', extended: true}))
@@ -196,6 +195,8 @@ app.route('/WorkAbs').post((req, res) => {
 });
 
 
+
+
 app.route('/SendTerm').post((req, res) => {
   let filename = req.body.filename;
 
@@ -213,3 +214,133 @@ app.route('/SendTerm').post((req, res) => {
   }
 }) ;
 
+app.route('/short').post((req, res) => {
+  absdate = req.body.AbsDate;
+  staff = req.body.Staff;
+  if (req.body.P1 == true)
+  {
+    p1 = "A";
+  }
+  else
+  {
+    p1 = null;
+  }
+  if (req.body.P2 == true)
+  {
+    p2 = "A";
+  }
+  else
+  {
+    p2 = null;
+  }
+  if (req.body.P3 == true)
+  {
+    p3 = "A";
+  }
+  else
+  {
+    p3 = null;
+  }
+  if (req.body.P4 == true)
+  {
+    p4 = "A";
+  }
+  else
+  {
+    p4 = null;
+  }
+
+
+  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (1001, $1, $2, $3, $4, $5, $6)';
+  const values = [staff,absdate, p1, p2, p3, p4]
+  
+  const client = new Client({
+  host: '127.0.0.1',
+  user: 'postgres',
+  database: 'SWE4103_db',
+  password: 'SWE4103',
+  port: 5432,
+});
+  client.connect(err => {
+    if (err) {
+      console.error('connection error', err.stack)
+    } else {
+      //console.log('connected')
+      client.query(text, values, (err, pgres) => {
+        if (err) {
+          console.log(err.stack)
+          res.writeHead(500, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({status: "ERROR"}));
+        } else {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({status: "inserted"}));
+        }});
+      }
+  })
+}); 
+
+app.route('/long').post((req, res) => {
+  staff = req.body.Staff;
+  startDate = new Date(req.body.StartDate);
+  endDate = new Date(req.body.EndDate);
+  count = 0;
+  end = 0;
+  values = [];
+  while (startDate < endDate)
+  {
+    value = [count, staff, startDate, "A", "A", "A", "A"];  
+    values.push(value);
+    count++;
+    startDate = getDay(startDate);
+  }
+
+  //console.log(values);
+  
+  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES ($1, $2, $3, $4, $5, $6, $7)';
+    
+  const client = new Client({
+    host: '127.0.0.1',
+    user: 'postgres',
+    database: 'SWE4103_db',
+    password: 'SWE4103',
+    port: 5432,
+    });
+    client.connect(err => {
+      if (err) {
+        console.error('connection error', err.stack)
+      } else {
+      //console.log('connected')
+        values.forEach(row => {
+          client.query(text, row, (err, pgres) => {
+            if (err) {
+              console.log(err.stack)
+              if (end == 0)
+              {
+                res.writeHead(500, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "ERROR"}));
+                end = 1;
+                console.log(row);
+              }
+            } else {
+              if (end == 0)
+              {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "inserted"}));
+                console.log(row);
+                end = -1;
+              }
+          }});
+        })
+      };
+    })
+  
+  
+}); 
+
+function getDay(d)
+{
+  d = new Date(d);
+  var date = new Date();
+  date.setDate(d.getDate() + 1);
+  return date;
+}
