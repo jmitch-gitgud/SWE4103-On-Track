@@ -5,6 +5,8 @@ import { FormControl } from "react-bootstrap";
 //import { render } from 'react-dom';
 import Calendar from '../Calendar'
 
+import Header from "../HeaderChangeDate";
+
 function ChangeDate(){
 
   const [names, setNames] = useState([]);
@@ -80,6 +82,8 @@ function ChangeDate(){
 
   return (
     <div>
+
+    <Header />
       <Dropdown style={{ paddingLeft: '200px', paddingTop: '50px'}} onSelect={handleSelect} onToggle={handleToggle}>
         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
           Select Teacher

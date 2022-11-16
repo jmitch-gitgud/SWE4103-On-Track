@@ -1,7 +1,10 @@
-import React, { Component } from "react";
-import Header from "../Header";
+import React, { Component }  from "react";
+import Header from "../HeaderHome";
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
+
+
+
 
 
 const options = [
@@ -11,13 +14,30 @@ const options = [
     }
   ];
 
+
+
+
+
+  const emptyRender = (
+    <div>
+    </div>
+  );
+
 class OA extends Component {
 
     state = {
         selectedFile1: '',
         selectedFile2: '',
-        selectedSheet: options[0]
+        selectedSheet: options[0],
+
+
+        isNoFileSelected: false,
+        isSuccess: false,
+        isFailure: false
     };
+      
+   
+    
 
     handleChange = event => {
         this.setState({ selectedSheet: event.target.value });
@@ -29,6 +49,7 @@ class OA extends Component {
         
         if (event.target.files[0] !== undefined)
         {
+        
             for(let i = 0; i < options.length; i++)
             {
                 options.shift();
@@ -120,18 +141,36 @@ class OA extends Component {
             }).then(function(response) {
                 return response.json();
             }).then(data => {
+
                 if (data.status === "File Successfully Inserted") {
-                    console.log(data.status);
+
+                    this.setState({ isNoFileSelected: false});
+                    this.setState({ isSuccess: true });
+                    this.setState({ isFailure: false});
+
                 } else {
-                    console.log(data.status);
+
+                    this.setState({ isNoFileSelected: false});
+                    this.setState({ isSuccess: false });
+                    this.setState({ isFailure: true});
+                   
                 }    
+                
             });
             event.preventDefault();
         }
         else
         {
-            console.log("No File Selected")
+            this.setState({ isNoFileSelected: true});
+            this.setState({ isSuccess: false });
+            this.setState({ isFailure: false});
         }
+
+        let randomString = Math.random().toString(36);
+        this.setState({
+            inputKey2: randomString,
+            selectedFile2: ''
+        })
     }
 
     deleteAbsenceFile = () => {
@@ -156,20 +195,20 @@ class OA extends Component {
             selectedFile2: ''
         })
     }
-    
+   
     
     render(){
         return(
             <div>
                 <Header />
-                <div>
-                <Link to="/">
-                    <button className="logout-button" type="button">
-                    Sign Out
-                    </button>
-                    </Link>
-                </div>
+                
+                                    
+                
+            
+                
                 <div className="login-header padding-top-64">
+
+
                     <h1 className="padding-bottom-16">Welcome Office Administrator</h1>               
                     
                     <h3 className="upload padding-top-test">Upload Work Related Absences</h3>
@@ -184,9 +223,40 @@ class OA extends Component {
                     </select>
                     <h3 className="upload padding-top-test">Upload Term Schedule</h3>
                     <input className="file" type="file" key={this.state.inputKey2} onChange={this.onScheduleFile} />
+
+
                     <button onClick={this.onScheduleUpload}>Upload</button>
                     &nbsp;
                     <button onClick={this.deleteScheduleFile}>Remove File</button>
+
+
+
+                    {this.state.isNoFileSelected ?                    
+           
+                    <div className="error">{"No File Selected"}</div>
+
+                    : emptyRender
+
+                    }
+
+                    {this.state.isFailure ?                    
+           
+                    <div className="error">{"Failed to Upload File"}</div>
+
+                    : emptyRender
+
+                    }
+
+
+                    {this.state.isSuccess ?                    
+           
+                    <div className="success">{"File Inserted"}</div>
+
+                    : emptyRender
+
+                    }
+
+
                     <h3 className="upload padding-top-test">View Current Absences</h3>
                     <Link to="/changeDate">
                         <button>View</button>
@@ -199,3 +269,4 @@ class OA extends Component {
 }
 
 export default OA;
+

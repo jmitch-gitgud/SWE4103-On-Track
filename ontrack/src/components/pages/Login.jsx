@@ -1,7 +1,10 @@
-import Header from "../Header";
+import Header from "../Header2";
 import Footer from "../Footer";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+
+//import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+//import ShowAndHidePassword from "./show-and-hide-password/ShowAndHidePassword";
 
 function Login() {
 
@@ -16,6 +19,7 @@ function Login() {
   const navigate = useNavigate();
 
   const [passwordShown, setPasswordShown] = useState(false);
+
 
   let nextPage;
   
@@ -34,7 +38,7 @@ function Login() {
     var status;
     let data = {Username: uname.value, Password: pass.value};
 
-    //page = GetRightPage(username, password);
+    
     fetch('/check', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -88,15 +92,27 @@ function Login() {
         <form onSubmit={handleSubmit}>
           <div>
             <label className="input-label">Username: </label>
-            <input type="text" name="uname" required />
+            <input type="text" name="uname" required placeholder="Enter your username"/>
           </div>
           <div>
             <label className="input-label">Password: </label>
             <div>
-            <input type={passwordShown ? "text" : "password"} name="pass" required />
-            <div>
-            <button onClick={togglePassword}><img src="https://vectorified.com/images/password-eye-icon-8.png" alt="eye" width="20" height="20"></img></button>
+
+            <div class='input-label'>
+            <input  type={passwordShown ? "text" : "password"} name="pass" required placeholder="Enter your password" />
+
+
+
+            <button className= "passToggle" type="button" onClick={togglePassword}><img src="https://vectorified.com/images/password-eye-icon-8.png" 
+            alt="eye" width="20" height="25"></img></button>
+
             </div>
+
+                      
+          
+           
+
+
           </div>
             {renderErrorMessage("Invalid")}
             {renderErrorMessage("Error")}

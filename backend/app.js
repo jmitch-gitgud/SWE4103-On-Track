@@ -28,15 +28,17 @@ app.route('/check').post((req, res) => {
   username = req.body.Username;
   password = req.body.Password;
 
-  const text = 'SELECT role_id FROM "staff" WHERE "username" = $1 AND "password" = $2'
+  const text = 'SELECT role_id FROM "public"."staff" WHERE "username" = $1 AND "password" = $2'
   const values = [username, password]
-  let rightPage = "initial"
+  let rightPage;
 
+  
+    
   const client = new Client({
-  host: '127.0.0.1',
+  host: '127.0.0.1', 
   user: 'postgres',
-  database: 'SWE4103_db',
-  password: 'SWE4103',
+  database: 'postgres',
+  password: 'Shadow12071207*',
   port: 5432,
 });
 
@@ -95,14 +97,14 @@ app.route('/user')
 .get((req, res, next) => {
   const text = 'SELECT * FROM fulltime_teacher NATURAL JOIN staff'
 
+      
   const client = new Client({
-    host: '127.0.0.1',
+    host: '127.0.0.1', 
     user: 'postgres',
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
   });
-
   client.connect(err => {
     if (err) {
       console.error('connection error', err.stack)
@@ -125,11 +127,12 @@ app.route('/user')
   let staff_id = req.query.staff_id
   const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
 
+    
   const client = new Client({
-    host: '127.0.0.1',
+    host: '127.0.0.1', 
     user: 'postgres',
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
   });
   

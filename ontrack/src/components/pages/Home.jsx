@@ -1,6 +1,5 @@
-import Header from "../Header";
+import Header from "../Header2";
 import Footer from "../Footer";
-
 import { Link } from "react-router-dom";
 import React from "react";
 
