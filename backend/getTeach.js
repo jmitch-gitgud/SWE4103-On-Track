@@ -24,13 +24,13 @@ const PORT = 3001;
 
 app.route('/user')
 .get((req, res, next) => {
-  const text = 'SELECT * FROM "SWE4103_Schema".fulltime_teacher NATURAL JOIN "SWE4103_Schema".staff'
+  const text = 'SELECT * FROM fulltime_teacher NATURAL JOIN staff'
 
   const client = new Client({
     host: '127.0.0.1',
     user: 'postgres',
     database: 'SWE4103_db',
-    password: 'ONtrack!44',
+    password: 'SWE4103',
     port: 5432,
 });
 
@@ -55,13 +55,13 @@ app.route('/user')
   
   let staff_id = req.query.staff_id
   console.log(staff_id)
-  const text = 'SELECT * FROM "SWE4103_Schema".work_abscense WHERE staff_id = ' + staff_id
+  const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
 
   const client = new Client({
     host: '127.0.0.1',
     user: 'postgres',
     database: 'SWE4103_db',
-    password: 'ONtrack!44',
+    password: 'SWE4103',
     port: 5432,
   });
   
@@ -91,48 +91,7 @@ app.listen(PORT, function(err){
     if (err) console.log(err);
     console.log("Server listening on PORT", PORT);
 });
-/*
-app.route('/check').get((req, res) => {
 
-  
-  console.log("wdvowu")
-  console.error("dnfo", 5)
-  const text = 'SELECT * FROM fulltime_teacher NATURAL JOIN staff'
-  console.log("ejifj")
-  console.log("wdvowu")
-  console.error("dnfo", 5)
-
-  const client = new Client({
-  host: 'localhost',
-  user: 'postgres',
-  database: 'SWE4103_db',
-  password: 'SWE4103',
-  port: 5432,
-});
-
-  client.connect(err => {
-    if (err) {
-      console.error('connection error', err.stack)
-    } else {
-      console.error('urmmo', 5)
-      console.log('connected')
-      client.query(text, (err, pgres) => {
-        if (err) {
-            res.writeHead(404, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({status: "Invalid credentials"}));
-        } else {
-          
-          res.writeHead(404, { "Content-Type": "application/json" });
-          res.end(pgres.rows);
-          
-          }
-        });
-          }
-  })
-}); 
-*/
-
-//server.listen(listenPort "localhost");
 
 
 

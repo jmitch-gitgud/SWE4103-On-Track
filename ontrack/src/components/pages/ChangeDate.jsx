@@ -5,7 +5,7 @@ import { FormControl } from "react-bootstrap";
 //import { render } from 'react-dom';
 import Calendar from '../Calendar'
 import { Link } from "react-router-dom";
-import Header from "../Header";
+//import Header from "../Header";
 import Footer from "../Footer";
 import "./ChangeDate.css";
 
@@ -109,7 +109,6 @@ function ChangeDate(){
         <button className = "addAbsenceButton">Add Absence</button>
         </Link> */}
       </Dropdown>
-      <Footer />
     </div>
   );
 }

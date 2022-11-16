@@ -25,14 +25,14 @@ const PORT = 3001;
 app.route('/getAbsences')
 .get((req, res, next) => {
   let staff_id = req.query.staff_id
-  const text = 'SELECT * FROM "SWE4103_Schema".work_abscense WHERE staff_id = ' + staff_id
+  const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
 
 
 const client = new Client({
   host: "localhost",
   user: "postgres",
-  database: "postgres",
-  password: "postgres",
+  database: "SWE4103_db",
+  password: "SWE4103",
   port: 5432
 });
 
@@ -67,38 +67,3 @@ app.listen(PORT, function(err){
     console.log("Server listening on PORT", PORT);
 });
 
-// const { Pool, Client } = require('pg');
-
-// const pool = new Pool({
-//     host: "localhost",
-//     user: "postgres",
-//     database: "postgres",
-//     password: "postgres",
-//     port: 5432
-//   });
-
-
-//  function readAbsences(){
-//   const query1 = 'SELECT * FROM "SWE4103_Schema"."Work_Abscense" ORDER BY "Absence_ID" ASC';
-
-//   pool.connect(err => {
-//     if (err) {
-//       console.error('connection error', err.stack)
-//     } else {
-//       pool.query(query1, (err, res) => {
-//         if(err){
-//             return err;
-//         }
-//         else{
-//             return res;
-//         }
-//       });
-//     }
-// });
-// }
-
-// const val = readAbsences();
-// console.log(val);
-
-
-// module.exports = readAbsences;

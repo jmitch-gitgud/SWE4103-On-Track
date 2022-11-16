@@ -36,8 +36,8 @@ app.route('/check').post((req, res) => {
   const client = new Client({
   host: '127.0.0.1', 
   user: 'postgres',
-  database: 'postgres',
-  password: 'Shadow12071207*',
+  database: 'SWE4103_db',
+  password: 'SWE4103',
   port: 5432,
 });
 
@@ -100,8 +100,8 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'postgres',
-    password: 'Shadow12071207*',
+    database: 'SWE4103_db',
+    password: 'SWE4103',
     port: 5432,
   });
   client.connect(err => {
@@ -130,8 +130,8 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'postgres',
-    password: 'Shadow12071207*',
+    database: 'SWE4103_db',
+    password: 'SWE4103',
     port: 5432,
   });
   
@@ -251,7 +251,7 @@ app.route('/short').post((req, res) => {
   }
 
 
-  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (1001, $1, $2, $3, $4, $5, $6)';
+  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
   const values = [staff,absdate, p1, p2, p3, p4]
   
   const client = new Client({
@@ -288,7 +288,7 @@ app.route('/long').post((req, res) => {
   values = [];
   while (startDate < endDate)
   {
-    value = [count, staff, startDate, "A", "A", "A", "A"];  
+    value = [staff, startDate, "A", "A", "A", "A"];  
     values.push(value);
     count++;
     startDate = getDay(startDate);
@@ -296,7 +296,7 @@ app.route('/long').post((req, res) => {
 
   //console.log(values);
   
-  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES ($1, $2, $3, $4, $5, $6, $7)';
+  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $2, $3, $4, $5, $6, $7)';
     
   const client = new Client({
     host: '127.0.0.1',

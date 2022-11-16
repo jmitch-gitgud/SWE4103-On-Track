@@ -212,15 +212,13 @@ class OA extends Component {
                     <h1 className="padding-bottom-16">Welcome Office Administrator</h1>               
                     
                     <h3 className="upload padding-top-test">Upload Work Related Absences</h3>
-                    <input className="file" type="file" key={this.state.inputKey1} onChange={this.onAbsenceFile} />
-                    <button onClick={this.onAbsenceUpload}>Upload</button>
+                    <Link to="/AddAbs">
+                        <button>Add long term absence</button>
+                    </Link>
                     &nbsp;
-                    <button onClick = {this.deleteAbsenceFile}>Remove File</button>
-                    <select value = {this.state.selectedSheet} onChange = {this.handleChange}>
-                        {options.map((option) => (
-                        <option value = {option.value}>{option.label}</option>
-                    ))}
-                    </select>
+                    <Link to="/AddShort">
+                        <button>Add single day absence</button>
+                    </Link>
                     <h3 className="upload padding-top-test">Upload Term Schedule</h3>
                     <input className="file" type="file" key={this.state.inputKey2} onChange={this.onScheduleFile} />
 

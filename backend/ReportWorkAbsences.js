@@ -15,7 +15,7 @@ function ReportWorkAbsences(filename, sheetIndex)
     const pool = new Pool({
         host: '127.0.0.1',
         user: "postgres",
-        database: "postgres",
+        database: "SWE4103_db",
         password: "SWE4103",
         port: 5432
       });

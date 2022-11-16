@@ -18,7 +18,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<AddAbs />} />
+            <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="oa" element={<OA />} />
             <Route path="operations" element={<Operations />} />
@@ -26,6 +26,8 @@ export default function App() {
             <Route path="fulltime" element={<FullTime />} />
             <Route path="vp" element={<VP />} />
             <Route path="changeDate" element={<ChangeDate />} />
+            <Route path="AddAbs" element={<AddAbs />} />
+            <Route path="AddShort" element={<AddShort />} />
           </Route>
         </Routes>
       </BrowserRouter>
