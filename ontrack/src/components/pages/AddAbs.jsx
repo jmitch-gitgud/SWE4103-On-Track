@@ -115,7 +115,6 @@ function AddAbs()
           
                 </Dropdown.Menu>
               </Dropdown>
-              <p>No Teacher Selected</p>
             </div>
 
             <div className="selectDate">
