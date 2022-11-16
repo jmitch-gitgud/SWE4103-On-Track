@@ -296,7 +296,7 @@ app.route('/long').post((req, res) => {
 
   //console.log(values);
   
-  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $2, $3, $4, $5, $6, $7)';
+  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
   const client = new Client({
     host: '127.0.0.1',
