@@ -9,6 +9,8 @@ import Header from "../Header";
 import Footer from "../Footer";
 import "./ChangeDate.css";
 
+import Header from "../HeaderChangeDate";
+
 function ChangeDate(){
 
   const [names, setNames] = useState([]);
@@ -84,11 +86,13 @@ function ChangeDate(){
 
   return (
     <div>
+
       <Header />
       <Link to="/OA">
         <button>Back</button>
       </Link>
       <Dropdown className = "tableSize" onSelect={handleSelect} onToggle={handleToggle}>
+
         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
           Select Teacher
         </Dropdown.Toggle>

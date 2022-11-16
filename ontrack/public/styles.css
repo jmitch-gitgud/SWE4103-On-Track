@@ -10,6 +10,15 @@
     background: #eee;
     padding: 0 16px;
   }
+
+  .breadcrumbs {
+    font-family: 'Kanit', sans-serif;
+    float: inline-start;
+    border-color: rgb(255, 255, 255);        
+    background-color: #05A;
+    color: #fff;
+    padding: 0.2rem;
+  }
   
   header {
     font-family: 'Kanit', sans-serif;
@@ -20,15 +29,24 @@
   
   header h2 {
     color: #fff;
-    font-weight: 200;
+    font-weight: 200; 
+    font-size: 40px;
   }
+
+
+  header h3 {
+    color: #fff;
+    font-weight: 200;
+    font-size: 18px;
+  }
+
 
   .login-header {
     text-align: center;
   }
 
   .login-button {
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Kanit', sans-serif;    
     background-color: #05A;
     color: #fff;
     font-size: larger;
@@ -39,13 +57,28 @@
     border-radius: 0.5rem;
   }
 
+  .link:hover {  
+    
+    color: #fff;   
+  }
+
+  .link {       
+    color: #fff; 
+  }
+
+
   .logout-button {
     font-family: 'Kanit', sans-serif;
+    font-weight: 200;
+    font-size: x-large;
     float: right;
-    border-color:rgb(1, 70, 139);
+    border-color:rgb(255, 255, 255);    
+    border-radius: 0.5rem;
+    border-width: 0.15rem;
     background-color: #05A;
     color: #fff;
     padding: 0.2rem;
+    margin-top: 23px;
   }
 
   .login-button:hover {
@@ -57,7 +90,15 @@
   .error {
     padding-bottom: 1rem;
     color: red;
+    font-size: large;
   }
+
+  .success {
+    padding-bottom: 1rem;
+    color: rgb(23, 200, 23);    
+    font-size: large;
+  }
+
 
   .login-success {
     text-align: center;
@@ -110,9 +151,12 @@
     border-radius: 0.5rem;
     box-shadow: 0 1px 5px rgb(138, 137, 137);
   }
+
+  
+
   form input,
   form textarea {
-    width: 100%;
+    width: 92%;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
     outline: none;
@@ -121,6 +165,7 @@
     resize: none;
     margin: 1rem auto;
   }
+
 
   .upload {
     text-align: center;
@@ -163,3 +208,13 @@
     background-color: blue;
   }
   
+ .passToggle{
+
+
+  float: right;
+
+  background-color: #fff;
+  padding: 0.25rem;
+  margin-top: 16px; 
+
+ }
