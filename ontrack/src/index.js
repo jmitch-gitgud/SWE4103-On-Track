@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
+import AddAbs from "./components/pages/AddAbs";
+import AddShort from "./components/pages/AddShort";
 import OA from "./components/pages/OA";
 import Operations from "./components/pages/Operations";
 import Supply from "./components/pages/Supply";
@@ -16,7 +18,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
+            <Route index element={<AddAbs />} />
             <Route path="login" element={<Login />} />
             <Route path="oa" element={<OA />} />
             <Route path="operations" element={<Operations />} />
