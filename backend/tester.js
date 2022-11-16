@@ -24,13 +24,13 @@ function SendTermSchedule(filename)
         data.shift();
 
            
-  const pool = new Pool({
-    host: '127.0.0.1', 
-    user: 'postgres',
-    database: 'SWE4103_db',
-    password: 'SWE4103',
-    port: 5432,
-  });
+        const pool = new Pool({
+          host: '127.0.0.1', 
+          user: 'postgres',
+          database: 'postgres',
+          password: 'Shadow12071207*',
+          port: 5432,
+        });
 
         let teachers = [];
         let periods = [];
