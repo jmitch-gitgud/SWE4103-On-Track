@@ -1,4 +1,4 @@
-import Header from "../Header";
+import Header from "../HeaderAddAbs";
 import Footer from "../Footer";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
@@ -115,27 +115,52 @@ function AddAbs()
     }
 
     return (
+        
         <div>
-            PICK DATE<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-            <Dropdown style={{ paddingLeft: '200px', paddingTop: '50px'}} onSelect={handleSelect} onToggle={handleToggle}>
-                <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                    Select Teacher
-                </Dropdown.Toggle>
+          <Header />
+          <h3 className="addAbsHeader">Submit Single Day Absences</h3>
+          
+          <div className="addAbs">
+            
+            <div className="selectTeacher">
+              <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
+                  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                      Select Teacher
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu as={CustomMenu}>
-          
-                    {names.map(stuff =>(
-                        <Dropdown.Item eventKey={stuff.staff_id}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
-                    ))}
-          
-                </Dropdown.Menu>
-            </Dropdown>
-            P1<input type="checkbox" name="P1" onChange={handleCheck}/>
-            P2<input type="checkbox" name="P2" onChange={handleCheck}/>
-            P3<input type="checkbox" name="P3" onChange={handleCheck}/>
-            P4<input type="checkbox" name="P4" onChange={handleCheck}/>
-            <p></p>
+                  <Dropdown.Menu as={CustomMenu}>
+            
+                      {names.map(stuff =>(
+                          <Dropdown.Item eventKey={stuff.staff_id}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
+                      ))}
+            
+                  </Dropdown.Menu>
+              </Dropdown>
+            </div>
+            
+            <div className="selectDate">
+              Select Date<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+            
+              <div className="selectEndDate">
+
+                Select Periods Teacher Will Be Absent<div>
+                P1<input type="checkbox" name="P1" onChange={handleCheck}/>
+                &nbsp;
+                P2<input type="checkbox" name="P2" onChange={handleCheck}/>
+                &nbsp;
+                P3<input type="checkbox" name="P3" onChange={handleCheck}/>
+                &nbsp;
+                P4<input type="checkbox" name="P4" onChange={handleCheck}/>
+                </div>
+
+              </div> 
+
+            </div>
+          </div>
+
+          <div className="addAbs">
             <Button as="input" type="submit" value="Submit" onClick={onSubmit}/>{' '}
+          </div>
         </div>
       );
     
