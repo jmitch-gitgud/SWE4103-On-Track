@@ -1,0 +1,16 @@
+name: CI
+on: [push, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm install
+          cd ../front-end
+          npm install
+      - name: testing
+        run: echo "hello world!"
