@@ -10,7 +10,7 @@ jobs:
         run: |
           cd backend
           npm install
-          cd ../front-end
+          cd ../ontrack
           npm install
       - name: testing
         run: echo "hello world!"
