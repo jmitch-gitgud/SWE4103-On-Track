@@ -6,13 +6,15 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: |
           cd ontrack
           npm install
-          cd ../backend
+      - name: Install backend dependencies
+        run: |
+          cd backend
           npm install
       - name: testing
         run: |
-          cd ../backend
+          cd backend
           npm test
