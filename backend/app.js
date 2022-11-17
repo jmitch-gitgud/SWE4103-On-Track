@@ -34,12 +34,12 @@ app.route('/check').post((req, res) => {
   
     
   const client = new Client({
-  host: '127.0.0.1', 
-  user: 'postgres',
-  database: 'SWE4103_db',
-  password: 'SWE4103',
-  port: 5432,
-});
+    host: '127.0.0.1', 
+    user: 'postgres',
+    database: 'postgres',
+    password: 'Shadow12071207*',
+    port: 5432,
+  });
 
   client.connect(err => {
     if (err) {
@@ -296,7 +296,7 @@ app.route('/long').post((req, res) => {
 
   //console.log(values);
   
-  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $2, $3, $4, $5, $6, $7)';
+  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
   const client = new Client({
     host: '127.0.0.1',
