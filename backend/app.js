@@ -37,7 +37,7 @@ app.route('/check').post((req, res) => {
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-    password: 'Shadow12071207*',
+    password: 'jordan_rocks',
     port: 5432,
   });
 
