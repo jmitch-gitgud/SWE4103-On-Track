@@ -14,5 +14,5 @@ jobs:
           npm install
       - name: testing
         run: |
-          pwd
+          cd ../backend
           npm test
