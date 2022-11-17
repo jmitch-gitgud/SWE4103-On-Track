@@ -30,8 +30,6 @@ jobs:
         run: |
           cd backend
           npm install
-      - name: Run migrations
-        run: psql -f db/migrations/file_name.sql postgresql://postgres:postgres@localhost:5432/postgres
       - name: Run tests
         run: |
           cd backend
