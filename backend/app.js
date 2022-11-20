@@ -7,7 +7,11 @@ var server = http.createServer(app);
 let ReportWorkAbsences = require("./ReportWorkAbsences.js");
 let GetSheetNames = require("./GetSheetNames.js");
 let tester = require("./tester.js");
+const { builtinModules } = require("module");
+
+
 const listenPort = 3001;
+const db_password = 'money$$23'
 
 app.use(bodyParser.json({limit: '1mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '1mb', extended: true}))
@@ -36,8 +40,8 @@ app.route('/check').post((req, res) => {
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'postgres',
-    password: 'jordan_rocks',
+    database: 'SWE4103_db',
+    password: db_password,
     port: 5432,
   });
 
@@ -101,7 +105,7 @@ app.route('/user')
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'SWE4103_db',
-    password: 'SWE4103',
+    password: db_password,
     port: 5432,
   });
   client.connect(err => {
@@ -131,7 +135,7 @@ app.route('/user')
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'SWE4103_db',
-    password: 'SWE4103',
+    password: db_password,
     port: 5432,
   });
   
@@ -258,7 +262,7 @@ app.route('/short').post((req, res) => {
   host: '127.0.0.1',
   user: 'postgres',
   database: 'SWE4103_db',
-  password: 'SWE4103',
+  password: db_password,
   port: 5432,
 });
   client.connect(err => {
@@ -302,7 +306,7 @@ app.route('/long').post((req, res) => {
     host: '127.0.0.1',
     user: 'postgres',
     database: 'SWE4103_db',
-    password: 'SWE4103',
+    password: db_password,
     port: 5432,
     });
     client.connect(err => {
@@ -344,3 +348,6 @@ function getDay(d)
   date.setDate(d.getDate() + 1);
   return date;
 }
+
+
+module.exports = app;
