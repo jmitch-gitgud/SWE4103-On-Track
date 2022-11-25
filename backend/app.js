@@ -11,7 +11,7 @@ const { builtinModules } = require("module");
 
 
 const listenPort = 3001;
-const db_password = 'money$$23'
+const db_password = 'SWE4103'
 
 app.use(bodyParser.json({limit: '1mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '1mb', extended: true}))
@@ -217,6 +217,61 @@ app.route('/SendTerm').post((req, res) => {
     res.end(JSON.stringify({status: "File Successfully Inserted"}));
   }
 }) ;
+
+app.route('/absences').get(async (req,res) => {
+  const text = "SELECT * FROM work_abscense WHERE absence_date = CURRENT_DATE";
+
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'SWE4103_db',
+        password: 'SWE4103',
+        port: 5432,
+      });
+      client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          client.query(text, (err, pgres) => {
+            if (err) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "terrible"}));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({Absences : pgres.rows})); 
+            }});
+              }
+      })
+});
+
+app.route('/avail').get(async (req,res) => {
+  const text = "SELECT * FROM schedule"
+
+
+
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'SWE4103_db',
+        password: 'SWE4103',
+        port: 5432,
+      });
+      client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          client.query(text, (err, pgres) => {
+            if (err) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "Bad"}));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({Avail : pgres.rows}));
+            }
+            });
+              }
+      })
+});
 
 app.route('/short').post((req, res) => {
   absdate = req.body.AbsDate;
