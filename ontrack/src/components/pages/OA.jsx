@@ -202,14 +202,15 @@ class OA extends Component {
             <div>
                 <Header />
                 
-                                    
-                
-            
+                                           
                 
                 <div className="login-header padding-top-64">
 
 
                     <h1 className="padding-bottom-16">Welcome Office Administrator</h1>               
+                    <Link to="/enter-work-related-absences">
+                        <button>Enter Work Related Absences</button>
+                    </Link>
                     
                     <h3 className="upload padding-top-test">Upload Work Related Absences</h3>
                     <Link to="/AddAbs">

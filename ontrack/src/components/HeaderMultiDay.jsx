@@ -7,26 +7,27 @@ function HeaderMultiDay() {
       <h2>
           On Track
 
+          <Link to="/">
+          <button className="logout-button" type="button">
+            Sign Out
+          </button>
+          </Link>
 
- 
-                    <Link to="/">
-                    <button className="logout-button" type="button">
-                    Sign Out
-                    </button>
-                    </Link>
+      </h2>
 
-                        </h2>
-
-                    <h3>          
-
-
-                    <Link className="link" to="/oa">
-                    Home 
-                   </Link>                  
-                    /Longterm Abscence
-                    </h3>   
-                  
-                      </header>
+      <h3>   
+        <Link className="link" to="/oa">
+          Home 
+        </Link> 
+        <Link className="link" to="/enter-work-related-absences">
+          {" > "}Work-Related Absences
+        </Link>   
+        <Link className="link" to="/add-multi-day">
+          {" > "}Multi-Day
+        </Link>
+      </h3>   
+      
+    </header>
 
                       
                      

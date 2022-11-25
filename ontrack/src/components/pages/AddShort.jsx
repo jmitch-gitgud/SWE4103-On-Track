@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FormControl } from "react-bootstrap";
 import DatePicker from "react-datepicker";
+import Calendar from "react-select-date";
 
 function AddAbs()
 {
@@ -37,8 +38,8 @@ function AddAbs()
       }
     
       const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-        <a
-          href="a"
+        <button
+          className="select"
           ref={ref}
           onClick={(e) => {
             e.preventDefault();
@@ -46,8 +47,10 @@ function AddAbs()
           }}
         >
           {children}
+          Select Teacher
+          &nbsp;
           &#x25bc;
-        </a>
+        </button>
       ));
     
       const CustomMenu = React.forwardRef(
@@ -116,16 +119,16 @@ function AddAbs()
 
     return (
         
-        <div>
+      <div >
           <Header />
-          <h3 className="addAbsHeader">Submit Single Day Absences</h3>
-          
-          <div className="addAbs">
+          <h1 className="pageHeader">Enter Single-Day Absence</h1>
             
-            <div className="selectTeacher">
+          <div className="padding-top-64"> 
+            <div className="abs-button-container">
+              <div className="select">
               <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
                   <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                      Select Teacher
+                      
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as={CustomMenu}>
@@ -136,32 +139,38 @@ function AddAbs()
             
                   </Dropdown.Menu>
               </Dropdown>
+              </div>
             </div>
-            
-            <div className="selectDate">
-              Select Date<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-            
-              <div className="selectEndDate">
-
-                Select Periods Teacher Will Be Absent<div>
-                P1<input type="checkbox" name="P1" onChange={handleCheck}/>
-                &nbsp;
-                P2<input type="checkbox" name="P2" onChange={handleCheck}/>
-                &nbsp;
-                P3<input type="checkbox" name="P3" onChange={handleCheck}/>
-                &nbsp;
-                P4<input type="checkbox" name="P4" onChange={handleCheck}/>
-                </div>
-
+          </div>
+          
+          <div className="padding-top-32">
+            <div className="abs-button-container">            
+              <DatePicker 
+                selected={startDate} onChange={(date) => setStartDate(date)} className="select"
+              />                
+            </div>
+          </div>
+          
+          <div className="padding-top-16">
+            <div className="abs-button-container">
+              
+              <div className="container-horizontal">
+                  P1<input type="checkbox" name="P1" onChange={handleCheck} className="checkbox"/>              
+                  P2<input type="checkbox" name="P2" onChange={handleCheck} className="checkbox"/>
+                  P3<input type="checkbox" name="P3" onChange={handleCheck} className="checkbox"/>
+                  P4<input type="checkbox" name="P4" onChange={handleCheck} className="checkbox"/>
               </div> 
-
             </div>
           </div>
 
-          <div className="addAbs">
-            <Button as="input" type="submit" value="Submit" onClick={onSubmit}/>{' '}
-          </div>
+          <div className="padding-top-32">  
+            <div className="abs-button-container">
+              <Button as="input" type="submit" value="Submit" onClick={onSubmit}/>{' '}
+            </div>
+          </div> 
+
         </div>
+
       );
     
 }

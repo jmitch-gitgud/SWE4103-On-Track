@@ -8,7 +8,7 @@ function Home() {
     <div>
       <Header />
       <div className="login-header padding-top-128">
-
+        
         <h1 className="padding-bottom-16">On Track</h1>
         <p className="padding-bottom-32">Stay on task with On Track!</p>
         <nav>

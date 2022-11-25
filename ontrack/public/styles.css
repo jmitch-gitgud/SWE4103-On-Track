@@ -19,7 +19,7 @@
     color: #fff;
     padding: 0.2rem;
   }
-  
+
   header {
     font-family: 'Kanit', sans-serif;
     background-color: #05A;
@@ -64,6 +64,8 @@
 
   .link {       
     color: #fff; 
+    font-size: 0.9rem;
+    text-decoration: none;
   }
 
 
@@ -114,7 +116,7 @@
     padding-top: 8rem;
   }
 
-  .padding-top-test {
+  .padding-top-32 {
     padding-top: 2rem;
   }
 
@@ -131,9 +133,9 @@
   }
   
   footer {
-    position: absolute;
     text-align: center;
     bottom: 0;
+    padding-top: 1.5rem;
     width: 100%;
     height: 2.5rem;
   }
@@ -152,8 +154,6 @@
     box-shadow: 0 1px 5px rgb(138, 137, 137);
   }
 
-  
-
   form input,
   form textarea {
     width: 92%;
@@ -166,6 +166,17 @@
     margin: 1rem auto;
   }
 
+  input[type="text"] {
+    border-width: 0.005rem;
+    border-radius: 4px;
+    padding-left: 0.5rem;
+  }
+
+  input[type="password"] {
+    border-width: 0.005rem;
+    border-radius: 4px;
+    padding-left: 0.5rem;
+  }
 
   .upload {
     text-align: center;
@@ -209,15 +220,19 @@
   }
   
  .passToggle{
-
-
-  float: right;
-
-  background-color: #fff;
+  
+  background: white url("https://vectorified.com/images/password-eye-icon-8.png") left no-repeat;
   padding: 0.25rem;
   margin-top: 16px; 
+  border: none;
 
  }
+
+ #funkystyling {
+
+  background: white url(/path/to/icon.png) left no-repeat;
+  padding-left: 17px;
+}
 
  .addAbs{
   display: flex;
@@ -242,11 +257,84 @@
 
  .submitAbs{
   display: flex;
-  justify-content: right;
+  justify-content: center;
   padding-top: 4rem;
  }
 
  .addAbsHeader{
   padding-top: 4rem;
   text-align: center;
+ }
+
+ .pageHeader{
+  color: #3741A1;
+  text-align: center;
+  padding-top: 4rem;
+ }
+
+ .abs-button{
+  width: 16rem;
+  height: 2.5rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border-color: rgb(81, 131, 240);
+  color: white;
+ }
+
+ .abs-button:hover {
+  background-color: rgb(23, 23, 128)
+ }
+
+ .abs-button-text{
+  color: white;
+  margin: auto;
+  font-weight: 600;
+  font-size: 1.1rem;
+ }
+
+ .abs-button-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+
+ .container-horizontal{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ }
+
+ .submit-button{
+  width: 4rem;
+  height: 2.5rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border-color: rgb(81, 131, 240);
+  color: white;
+ }
+
+ .select{
+  width: 12rem;
+  height: 2.5rem;
+  text-align: center;
+  border-radius: 4px;
+  border-color: #3741A1;
+  background-color: rgb(244, 244, 244);
+  color: #3741A1;
+  font-weight: 600;
+  font-size: 1.1rem;
+ }
+
+ .select:hover {
+  background-color: rgb(245, 245, 245)
+ }
+
+ .checkbox {
+  width: 4rem;
+  height: 2.5rem;
+  color: #3741A1;
+  border-radius: 4px;
+  border-color: #3741A1;
  }

@@ -35,8 +35,8 @@ function AddAbs()
       }
     
       const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-        <a
-          href="a"
+        <button
+          className="select"
           ref={ref}
           onClick={(e) => {
             e.preventDefault();
@@ -44,8 +44,10 @@ function AddAbs()
           }}
         >
           {children}
+          Select Teacher
+          &nbsp;
           &#x25bc;
-        </a>
+        </button>
       ));
     
       const CustomMenu = React.forwardRef(
@@ -97,26 +99,28 @@ function AddAbs()
       
         <div>
           <Header />
-          <h3 className="addAbsHeader">Submit Long Term Absences</h3>
+          <h1 className="pageHeader">Enter Multi-Day Absence</h1>
           
-          <div className="addAbs">
+          <div className="padding-top-64">
+            <div className="abs-button-container">
+              <div className="select">
+                <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
+                  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                      
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu as={CustomMenu}>
+
+                      {names.map(stuff =>(
+                          <Dropdown.Item eventKey={stuff.staff_id}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
+                      ))}
             
-            <div className="selectTeacher">
-              <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
-                <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                    Select Teacher
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu as={CustomMenu}>
-
-                    {names.map(stuff =>(
-                        <Dropdown.Item eventKey={stuff.staff_id}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
-                    ))}
-          
-                </Dropdown.Menu>
-              </Dropdown>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
             </div>
 
+          <div className="padding-top-32">
             <div className="selectDate">
                 Select Start Date<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                 
@@ -125,7 +129,7 @@ function AddAbs()
                 </div>
 
             </div>
-            
+            </div>
           </div>
 
           <div className="addAbs">
