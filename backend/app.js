@@ -100,10 +100,11 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
   });
+  
   client.connect(err => {
     if (err) {
       console.error('connection error', err.stack)
@@ -130,8 +131,8 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
   });
   
@@ -255,12 +256,14 @@ app.route('/short').post((req, res) => {
   const values = [staff,absdate, p1, p2, p3, p4]
   
   const client = new Client({
-  host: '127.0.0.1',
-  user: 'postgres',
-  database: 'SWE4103_db',
-  password: 'SWE4103',
-  port: 5432,
-});
+    host: '127.0.0.1', 
+    user: 'postgres',
+    database: 'postgres',
+    password: 'Shadow12071207*',
+    port: 5432,
+  });
+
+
   client.connect(err => {
     if (err) {
       console.error('connection error', err.stack)
@@ -294,17 +297,18 @@ app.route('/long').post((req, res) => {
     startDate = getDay(startDate);
   }
 
-  //console.log(values);
   
   const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $2, $3, $4, $5, $6, $7)';
     
   const client = new Client({
     host: '127.0.0.1',
     user: 'postgres',
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
     });
+
+    
     client.connect(err => {
       if (err) {
         console.error('connection error', err.stack)
@@ -344,3 +348,4 @@ function getDay(d)
   date.setDate(d.getDate() + 1);
   return date;
 }
+
