@@ -53,8 +53,8 @@ test('Adding a Single-Day Absence', async () => {
 async function addSingleDayAbs(){
 
     let payload = {
-        AbsDate: '01-01-2023',
-        Staff: 123,
+        AbsDate: '2023-01-01',
+        Staff: 1,
         P1: true,
         P2: false,
         P3: false,
@@ -66,6 +66,8 @@ async function addSingleDayAbs(){
     return data
 }
 
+
+
 // === TEST for Role Assignment, '/check' endpoint ===
 test('Testing Role Assignment - OA', async () => {
     await expect(doPostRequest()).resolves.toStrictEqual({ "page": "/oa", "status": "Logged in" });
@@ -74,8 +76,8 @@ test('Testing Role Assignment - OA', async () => {
 async function doPostRequest() {
 
     let payload = {
-        Username: 'courtneyOA',
-        Password: 'O@4ever'
+        Username: 'user1000',
+        Password: 'pass1000'
     };
 
     let res = await axios.post('http://localhost:3001/check', payload);

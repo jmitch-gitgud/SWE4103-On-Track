@@ -225,7 +225,7 @@ app.route('/absences').get(async (req,res) => {
         host: '127.0.0.1', 
         user: 'postgres',
         database: 'SWE4103_db',
-        password: 'SWE4103',
+        password: db_password,
         port: 5432,
       });
       client.connect(err => {
@@ -253,7 +253,7 @@ app.route('/avail').get(async (req,res) => {
         host: '127.0.0.1', 
         user: 'postgres',
         database: 'SWE4103_db',
-        password: 'SWE4103',
+        password: db_password,
         port: 5432,
       });
       client.connect(err => {
