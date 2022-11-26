@@ -218,3 +218,35 @@
   margin-top: 16px; 
 
  }
+
+ .addAbs{
+  display: flex;
+  justify-content: center;
+  flex: none;
+  padding-top: 4rem;
+  
+ }
+
+ .selectTeacher{
+  padding-left: 8rem;
+  padding-right: 6rem;
+ }
+
+ .selectDate{
+  padding-left: 6rem;
+ }
+
+ .selectEndDate{
+  padding-top: 1rem;
+ }
+
+ .submitAbs{
+  display: flex;
+  justify-content: right;
+  padding-top: 4rem;
+ }
+
+ .addAbsHeader{
+  padding-top: 4rem;
+  text-align: center;
+ }

@@ -4,19 +4,19 @@ volumes:
   postgresvol15:
 
 networks:
-  carly_network:
+  jordan_network:
 
 services:
   postgres:
     image: postgres:14.1-alpine
     networks:
-      - carly_network
+      - jordan_network
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ONTrack!44
+      POSTGRES_PASSWORD: jordan_rocks
       PGDATA: /pgdata
     volumes:
-    - /Users/carly/OneDrive/School/2022-2023/SWE4103/SWE4103-On-Track/postgres/pgconf:/pgconf
+    - /home/jordanm/Documents/GitHub/OnTrack/postgres/pgconf/postgres.conf:/pgconf
     - postgresvol15:/pgdata
     ports:
       - "5432:5432"
