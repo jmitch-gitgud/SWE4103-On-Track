@@ -29,26 +29,26 @@ function assign(available, absent)
 
     placements = []; //For the 2d array of placements
 
-let absSched = [];
-let i = 0;
+    let absSched = [];
+    let i = 0;
 
-while (i < absent.length) 
-{ 
-  let j = 0;
+    while (i < absent.length) 
+    { 
+    let j = 0;
+        
+    while (j < available.length)
+    {
+        if(available[j][0] == absent[i][0])
+        {
+            absSched.push(available[j]);
+            available.splice(j, 1);
+        }
+
+        j++;
+    }
     
-  while (j < available.length)
-  {
-      if(available[j][0] == absent[i][0])
-      {
-        absSched.push(available[j]);
-        available.splice(j, 1);
-      }
-
-      j++;
-  }
-  
-  i++;
-}
+    i++;
+    }
     
     
 
@@ -203,25 +203,29 @@ while (i < absent.length)
 
     }
 
-
-
-
-
-
-
    
+    
+        client.connect(err => {
+          if (err) {
+            console.error('connection error', err.stack)
+          } else {
+          
+            placements.forEach(row => {
+              client.query(text, row, (err, pgres) => {
+                if (err) {
+                  console.log(err.stack)
+            }});
+            })
+          };
+        })
+    
+    
 
-    console.log(placements);
 }
 
 
-    // each row in the 2D arrays are structured: staff_id, p1, p2, p3, p4
 
-availableProf = [[1, '', 'free', '',''],[13, '', 'free', '',''],[6, 'free', '', '', '']]; 
 
-absentProf = [[1, '', 'A', 'A', ''],[2, '', 'A', '', ''],[3, 'A', '','', '']];
-
-assign(availableProf, absentProf);
 
 
 

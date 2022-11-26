@@ -308,12 +308,12 @@ app.route('/long').post((req, res) => {
     port: 5432,
     });
 
-    
+
     client.connect(err => {
       if (err) {
         console.error('connection error', err.stack)
       } else {
-      //console.log('connected')
+      
         values.forEach(row => {
           client.query(text, row, (err, pgres) => {
             if (err) {
