@@ -7,7 +7,11 @@ var server = http.createServer(app);
 let ReportWorkAbsences = require("./ReportWorkAbsences.js");
 let GetSheetNames = require("./GetSheetNames.js");
 let tester = require("./tester.js");
+const { builtinModules } = require("module");
+
+
 const listenPort = 3001;
+const db_password = 'SWE4103'
 
 app.use(bodyParser.json({limit: '1mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '1mb', extended: true}))
@@ -36,8 +40,8 @@ app.route('/check').post((req, res) => {
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'postgres',
-    password: 'Shadow12071207*',
+    database: 'SWE4103_db',
+    password: db_password,
     port: 5432,
   });
 
@@ -100,8 +104,8 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'postgres',
-    password: 'Shadow12071207*',
+    database: 'SWE4103_db',
+    password: 'SWE4103',
     port: 5432,
   });
   
@@ -131,8 +135,8 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'postgres',
-    password: 'Shadow12071207*',
+    database: 'SWE4103_db',
+    password: 'SWE4103',
     port: 5432,
   });
   
@@ -215,6 +219,61 @@ app.route('/SendTerm').post((req, res) => {
   }
 }) ;
 
+app.route('/absences').get(async (req,res) => {
+  const text = "SELECT * FROM work_abscense WHERE absence_date = CURRENT_DATE";
+
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'SWE4103_db',
+        password: db_password,
+        port: 5432,
+      });
+      client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          client.query(text, (err, pgres) => {
+            if (err) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "terrible"}));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({Absences : pgres.rows})); 
+            }});
+              }
+      })
+});
+
+app.route('/avail').get(async (req,res) => {
+  const text = "SELECT * FROM schedule"
+
+
+
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'SWE4103_db',
+        password: db_password,
+        port: 5432,
+      });
+      client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          client.query(text, (err, pgres) => {
+            if (err) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "Bad"}));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({Avail : pgres.rows}));
+            }
+            });
+              }
+      })
+});
+
 app.route('/short').post((req, res) => {
   absdate = req.body.AbsDate;
   staff = req.body.Staff;
@@ -256,14 +315,12 @@ app.route('/short').post((req, res) => {
   const values = [staff,absdate, p1, p2, p3, p4]
   
   const client = new Client({
-    host: '127.0.0.1', 
-    user: 'postgres',
-    database: 'postgres',
-    password: 'Shadow12071207*',
-    port: 5432,
-  });
-
-
+  host: '127.0.0.1',
+  user: 'postgres',
+  database: 'SWE4103_db',
+  password: 'SWE4103',
+  port: 5432,
+});
   client.connect(err => {
     if (err) {
       console.error('connection error', err.stack)
@@ -298,13 +355,13 @@ app.route('/long').post((req, res) => {
   }
 
   
-  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $2, $3, $4, $5, $6, $7)';
+  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
   const client = new Client({
     host: '127.0.0.1',
     user: 'postgres',
-    database: 'postgres',
-    password: 'Shadow12071207*',
+    database: 'SWE4103_db',
+    password: 'SWE4103',
     port: 5432,
     });
 
@@ -348,4 +405,3 @@ function getDay(d)
   date.setDate(d.getDate() + 1);
   return date;
 }
-

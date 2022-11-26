@@ -37,9 +37,6 @@ const togglePassword = () => {
 
     let data = {Username: uname.value, Password: pass.value};
 
-
-    
-
     fetch('/check', {
         method: 'POST',
         body: JSON.stringify(data),

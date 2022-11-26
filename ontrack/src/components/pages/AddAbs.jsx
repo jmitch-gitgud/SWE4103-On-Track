@@ -19,6 +19,7 @@ function AddAbs()
 
     const handleSelect=(e)=>{
         setTeacher(e);
+        
       }
 
     const handleToggle=(e)=>{
@@ -93,31 +94,46 @@ function AddAbs()
     }
 
     return (
-
-
-
+      
         <div>
-         <div> <Header /></div>
-
-            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-            <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
-            <Dropdown style={{ paddingLeft: '200px', paddingTop: '50px'}} onSelect={handleSelect} onToggle={handleToggle}>
+          <Header />
+          <h3 className="addAbsHeader">Submit Long Term Absences</h3>
+          
+          <div className="addAbs">
+            
+            <div className="selectTeacher">
+              <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                     Select Teacher
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as={CustomMenu}>
-          
+
                     {names.map(stuff =>(
                         <Dropdown.Item eventKey={stuff.staff_id}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
                     ))}
           
                 </Dropdown.Menu>
-            </Dropdown>
+              </Dropdown>
+            </div>
+
+            <div className="selectDate">
+                Select Start Date<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                
+                <div className="selectEndDate">
+                Select End Date<DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+                </div>
+
+            </div>
+            
+          </div>
+
+          <div className="addAbs">
             <Button as="input" type="submit" value="Submit" onClick={onSubmit}/>{' '}
+          </div>
+
         </div>
-      );
-    
+      );   
 }
 
 export default AddAbs;
