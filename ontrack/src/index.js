@@ -11,6 +11,7 @@ import Supply from "./components/pages/Supply";
 import FullTime from "./components/pages/FullTime";
 import VP from "./components/pages/VP";
 import ChangeDate from "./components/pages/ChangeDate";
+import GenOncalls from "./components/pages/GenOncalls";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="changeDate" element={<ChangeDate />} />
             <Route path="AddAbs" element={<AddAbs />} />
             <Route path="AddShort" element={<AddShort />} />
+            <Route path="GenOncalls" element={<GenOncalls />} />
           </Route>
         </Routes>
       </BrowserRouter>
