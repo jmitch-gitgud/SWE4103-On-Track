@@ -41,6 +41,7 @@ function GenOncalls(){
         }).then(data => {
           setOncalls(data.Oncalls);
         })
+        console.log(abs);
     }
 
     return(

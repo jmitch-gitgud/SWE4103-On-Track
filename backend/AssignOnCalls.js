@@ -58,7 +58,7 @@ function assign(available, absent)
         if(absent[i].period1 == 'A')
         {
             filled = false; 
-
+            var name = absent[i].first_name + " " + absent[i].last_name;
             j = 0; 
 
             for(k = 0; k < absSched.length; k++)
@@ -74,8 +74,8 @@ function assign(available, absent)
                 {
                     if(available[j].period1 == 'free') //need to figure out what the free period is
                     {
-
-                        placements.push([absent[i].staff_id, available[j].staff_id, 'p1', courseCode])
+                        var name2 = available[j].first_name + " " + available[j].last_name;
+                        placements.push([name, name2, 'p1', courseCode])
                         filled = true; 
                         available.splice(j , 1);
                     }              
@@ -85,7 +85,7 @@ function assign(available, absent)
 
                 
                 if(!filled)
-                    placements.push([absent[i].staff_id, 'Study Hall' , 'p1', courseCode])
+                    placements.push([name, 'Study Hall' , 'p1', courseCode])
             }
         }
 
@@ -97,7 +97,7 @@ function assign(available, absent)
 
             j = 0; 
 
-
+            var name = absent[i].first_name + " " + absent[i].last_name;
             for(k = 0; k < absSched.length; k++)
             {
                if(absSched[k].staff_id == absent[i].staff_id)
@@ -112,7 +112,8 @@ function assign(available, absent)
                 {
                     if(available[j].period2 == 'free') 
                     {
-                        placements.push([absent[i].staff_id, available[j].staff_id, 'p2', courseCode])
+                        var name2 = available[j].first_name + " " + available[j].last_name;
+                        placements.push([name, name2, 'p2', courseCode])
                         filled = true;
                         available.splice(j , 1); 
                     }              
@@ -122,7 +123,7 @@ function assign(available, absent)
 
                 
                 if(!filled)
-                    placements.push([absent[i].staff_id, 'Study Hall' , 'p2', courseCode])
+                    placements.push([name, 'Study Hall' , 'p2', courseCode])
 
             }
         }
@@ -131,6 +132,7 @@ function assign(available, absent)
 
         if(absent[i].period3 == 'A')
         {
+            var name = absent[i].first_name + " " + absent[i].last_name;
 
             filled = false; 
 
@@ -149,7 +151,8 @@ function assign(available, absent)
                 {
                     if(available[j].period3 == 'free') 
                     {
-                        placements.push([absent[i].staff_id, available[j].staff_id, 'p3', courseCode])
+                        var name2 = available[j].first_name + " " + available[j].last_name;
+                        placements.push([name, name2, 'p3', courseCode])
                         filled = true; 
                         available.splice(j , 1);
                     }              
@@ -159,7 +162,7 @@ function assign(available, absent)
 
                 
                 if(!filled)
-                    placements.push([absent[i].staff_id, 'Study Hall' , 'p3', courseCode])
+                    placements.push([name, 'Study Hall' , 'p3', courseCode])
             }
         }
 
@@ -168,7 +171,7 @@ function assign(available, absent)
 
         if(absent[i].period4 == 'A')
         {
-
+            var name = absent[i].first_name + " " + absent[i].last_name;
             filled = false; 
 
             j = 0; 
@@ -187,16 +190,17 @@ function assign(available, absent)
                 {
                     if(available[j].period4 == 'free') 
                     {
-                       placements.push([absent[i].staff_id, available[j].staff_id, 'p4', courseCode])
+                        var name2 = available[j].first_name + " " + available[j].last_name;
+                       placements.push([name, name2, 'p4', courseCode])
                        filled = true; 
                        available.splice(j , 1);
                      }              
 
                     j++; 
                 }
-
+                
                  if(!filled)
-                     placements.push([absent[i].staff_id, 'Study Hall' , 'p4', courseCode])
+                     placements.push([name, 'Study Hall' , 'p4', courseCode])
             }
         }
 

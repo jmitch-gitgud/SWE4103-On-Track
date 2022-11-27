@@ -218,7 +218,7 @@ app.route('/SendTerm').post((req, res) => {
 }) ;
 
 app.route('/absences').get(async (req,res) => {
-  const text = "SELECT * FROM work_abscense WHERE absence_date = CURRENT_DATE";
+  const text = "SELECT * FROM work_abscense NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
 
     const client = new Client({
         host: '127.0.0.1', 
@@ -233,6 +233,7 @@ app.route('/absences').get(async (req,res) => {
         } else {
           client.query(text, (err, pgres) => {
             if (err) {
+              console.error('connection error', err)
                 res.writeHead(404, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({status: "Error"}));
             } else {
@@ -244,7 +245,7 @@ app.route('/absences').get(async (req,res) => {
 });
 
 app.route('/avail').get(async (req,res) => {
-  const text = "SELECT * FROM schedule"
+  const text = "SELECT * FROM schedule NATURAL JOIN staff"
 
 
 
