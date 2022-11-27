@@ -1,4 +1,4 @@
-import Header from "../HeaderHome";
+import Header from "../HeaderGenOnCalls";
 import Footer from "../Footer";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
@@ -6,8 +6,9 @@ import Table from "react-bootstrap/Table";
 
 function GenOncalls(){
 
-    const [avail, setAvail] = useState([{absent: "N/A", avail: "N/A", period: "N/A", class: "N/A"}]);
-    const [abs, setAbs] = useState([{staff_id: 2000}]);
+    const [avail, setAvail] = useState([]);
+    const [abs, setAbs] = useState([]);
+    const [oncalls, setOncalls] = useState([]);
 
     const onSubmit=(e)=>{
         fetch('/avail', {
@@ -28,13 +29,26 @@ function GenOncalls(){
             {
               setAbs(data.Absences);
             })
-        console.log(avail);    
+        let data = {Avail: avail, Abs: abs};
+        fetch('/oncall', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json'
+             } 
+        }).then(function(response) {
+              return response.json();
+        }).then(data => {
+          setOncalls(data.Oncalls);
+        })
     }
 
     return(
         <div>
             <Header />
-            <Button as="input" value="Generate Oncalls" onClick={onSubmit}/>{' '}
+            <p></p>
+            <button onClick={onSubmit}>Generate Oncalls</button>
+            <p></p>
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -45,13 +59,13 @@ function GenOncalls(){
                 </tr>
               </thead>
               <tbody>
-                {avail.map(item => {
+                {oncalls.map(item => {
                   return (
                     <tr>
-                      <td>{ item.absent }</td>
-                      <td>{ item.avail }</td>
-                      <td>{ item.period }</td>
-                      <td>{ item.class }</td>
+                      <td>{ item[0] }</td>
+                      <td>{ item[1] }</td>
+                      <td>{ item[2] }</td>
+                      <td>{ item[3] }</td>
                     </tr>
                   );
                 })}

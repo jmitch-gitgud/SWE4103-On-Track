@@ -6,6 +6,7 @@ const {Client} = require("pg");
 var server = http.createServer(app);
 let ReportWorkAbsences = require("./ReportWorkAbsences.js");
 let GetSheetNames = require("./GetSheetNames.js");
+let AssignOnCalls = require("./AssignOnCalls.js");
 let tester = require("./tester.js");
 const { builtinModules } = require("module");
 
@@ -199,9 +200,6 @@ app.route('/WorkAbs').post((req, res) => {
   }
 });
 
-
-
-
 app.route('/SendTerm').post((req, res) => {
   let filename = req.body.filename;
 
@@ -236,7 +234,7 @@ app.route('/absences').get(async (req,res) => {
           client.query(text, (err, pgres) => {
             if (err) {
                 res.writeHead(404, { "Content-Type": "application/json" });
-                res.end(JSON.stringify({status: "terrible"}));
+                res.end(JSON.stringify({status: "Error"}));
             } else {
                 res.writeHead(200, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({Absences : pgres.rows})); 
@@ -264,7 +262,7 @@ app.route('/avail').get(async (req,res) => {
           client.query(text, (err, pgres) => {
             if (err) {
                 res.writeHead(404, { "Content-Type": "application/json" });
-                res.end(JSON.stringify({status: "Bad"}));
+                res.end(JSON.stringify({status: "Error"}));
             } else {
                 res.writeHead(200, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({Avail : pgres.rows}));
@@ -272,6 +270,15 @@ app.route('/avail').get(async (req,res) => {
             });
               }
       })
+});
+
+app.route('/oncall').post((req, res) => {
+  avail = req.body.Avail;
+  abs = req.body.Abs;
+  oncalls = AssignOnCalls.assign(avail,abs);
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify({Oncalls: oncalls}));
+
 });
 
 app.route('/short').post((req, res) => {
