@@ -3,7 +3,7 @@
 /*
 
 test( <'INSERT TEST NAME HERE'>, async() => {
-    await expect(<DATA HERE>).<MATCHER HERE>( <EXPECTED RESULTS HERE> );
+    await expect(<CALL TO FUNCTION>).resolves.toStrictEqual( <EXPECTED RESULTS HERE> );
 });
 
 */
@@ -45,28 +45,9 @@ test('Hopefully, a helpful test', () => {
 });
 
 
-// ========== '/short' endpoint ===========
-test('Adding a Single-Day Absence', async () => {
-    await expect(addSingleDayAbs()).resolves.toStrictEqual({"status" : "inserted"});
-});
-
-async function addSingleDayAbs(){
-
-    let payload = {
-        AbsDate: '01-01-2023',
-        Staff: 123,
-        P1: true,
-        P2: false,
-        P3: false,
-        P4: false,
-    }
-
-    let res = await axios.post('http://localhost:3001/short', payload);
-    let data = res.data
-    return data
-}
 
 // === TEST for Role Assignment, '/check' endpoint ===
+
 test('Testing Role Assignment - OA', async () => {
     await expect(doPostRequest()).resolves.toStrictEqual({ "page": "/oa", "status": "Logged in" });
 });
@@ -74,7 +55,7 @@ test('Testing Role Assignment - OA', async () => {
 async function doPostRequest() {
 
     let payload = {
-        Username: 'courtneyOA',
+        Username: 'courtneyOA', 
         Password: 'O@4ever'
     };
 
@@ -83,6 +64,32 @@ async function doPostRequest() {
     let data = res.data;
     return data;
 }
+
+test('Add Single Day Abs', async() => {
+    await expect(addSingleDayAbs()).resolves.toStrictEqual({status: "inserted"});
+});
+
+async function addSingleDayAbs() {
+
+    let payload ={
+        AbsDate: '01-01-2023',
+        Staff: 31,
+        P1: true,
+        P2: false,
+        P3: false,
+        P4: true
+    }
+    
+    let res = await axios.post('http://localhost:3001/short', payload);
+
+    let data = res.data;
+    return data;
+
+
+
+}
+
+
 
 
 
