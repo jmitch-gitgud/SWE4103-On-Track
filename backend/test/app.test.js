@@ -54,7 +54,7 @@ async function addSingleDayAbs(){
 
     let payload = {
         AbsDate: '2023-01-01',
-        Staff: 1,
+        Staff: 8,
         P1: true,
         P2: false,
         P3: false,
@@ -76,13 +76,26 @@ test('Testing Role Assignment - OA', async () => {
 async function doPostRequest() {
 
     let payload = {
-        Username: 'user1000',
-        Password: 'pass1000'
+        Username: 'oa1',
+        Password: 'password'
     };
 
     let res = await axios.post('http://localhost:3001/check', payload);
     
     let data = res.data;
+    return data;
+}
+
+// === TEST for getting fulltime staff, '/user' endpoint ===
+test('Testing get fulltime staff', async () => {
+
+    await expect(getStaffList()).resolves.toStrictEqual(2);
+});
+
+async function getStaffList() {
+
+    let res = await axios.get('http://localhost:3001/user');
+    let data = res.data.names.length;
     return data;
 }
 
