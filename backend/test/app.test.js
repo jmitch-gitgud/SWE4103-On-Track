@@ -3,7 +3,7 @@
 /*
 
 test( <'INSERT TEST NAME HERE'>, async() => {
-    await expect(<DATA HERE>).<MATCHER HERE>( <EXPECTED RESULTS HERE> );
+    await expect(<CALL TO FUNCTION>).resolves.toStrictEqual( <EXPECTED RESULTS HERE> );
 });
 
 */
@@ -69,6 +69,7 @@ async function addSingleDayAbs(){
 
 
 // === TEST for Role Assignment, '/check' endpoint ===
+
 test('Testing Role Assignment - OA', async () => {
     await expect(doPostRequest()).resolves.toStrictEqual({ "page": "/oa", "status": "Logged in" });
 });
@@ -76,6 +77,7 @@ test('Testing Role Assignment - OA', async () => {
 async function doPostRequest() {
 
     let payload = {
+
         Username: 'user1000',
         Password: 'pass1000'
     };
@@ -85,6 +87,7 @@ async function doPostRequest() {
     let data = res.data;
     return data;
 }
+
 
 
 
