@@ -6,12 +6,13 @@ const {Client} = require("pg");
 var server = http.createServer(app);
 let ReportWorkAbsences = require("./ReportWorkAbsences.js");
 let GetSheetNames = require("./GetSheetNames.js");
+let AssignOnCalls = require("./AssignOnCalls.js");
 let tester = require("./tester.js");
 const { builtinModules } = require("module");
 
 
 const listenPort = 3001;
-const db_password = 'money$$23'
+const db_password = 'SWE4103'
 
 app.use(bodyParser.json({limit: '1mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '1mb', extended: true}))
@@ -104,10 +105,12 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
+
     database: 'SWE4103_db',
-    password: db_password,
+    password: 'SWE4103',
     port: 5432,
   });
+  
   client.connect(err => {
     if (err) {
       console.error('connection error', err.stack)
@@ -134,8 +137,9 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
+
     database: 'SWE4103_db',
-    password: db_password,
+    password: 'SWE4103',
     port: 5432,
   });
   
@@ -198,9 +202,6 @@ app.route('/WorkAbs').post((req, res) => {
   }
 });
 
-
-
-
 app.route('/SendTerm').post((req, res) => {
   let filename = req.body.filename;
 
@@ -217,6 +218,71 @@ app.route('/SendTerm').post((req, res) => {
     res.end(JSON.stringify({status: "File Successfully Inserted"}));
   }
 }) ;
+
+app.route('/absences').get(async (req,res) => {
+  const text = "SELECT * FROM work_abscense NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
+
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'SWE4103_db',
+        password: db_password,
+        port: 5432,
+      });
+      client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          client.query(text, (err, pgres) => {
+            if (err) {
+              console.error('connection error', err)
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "Error"}));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({Absences : pgres.rows})); 
+            }});
+              }
+      })
+});
+
+app.route('/avail').get(async (req,res) => {
+  const text = "SELECT * FROM schedule NATURAL JOIN staff"
+
+
+
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'SWE4103_db',
+        password: db_password,
+        port: 5432,
+      });
+      client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          client.query(text, (err, pgres) => {
+            if (err) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "Error"}));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({Avail : pgres.rows}));
+            }
+            });
+              }
+      })
+});
+
+app.route('/oncall').post((req, res) => {
+  avail = req.body.Avail;
+  abs = req.body.Abs;
+  oncalls = AssignOnCalls.assign(avail,abs);
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify({Oncalls: oncalls}));
+
+});
 
 app.route('/short').post((req, res) => {
   absdate = req.body.AbsDate;
@@ -259,10 +325,11 @@ app.route('/short').post((req, res) => {
   const values = [staff,absdate, p1, p2, p3, p4]
   
   const client = new Client({
+
   host: '127.0.0.1',
   user: 'postgres',
   database: 'SWE4103_db',
-  password: db_password,
+  password: 'SWE4103',
   port: 5432,
 });
   client.connect(err => {
@@ -298,22 +365,24 @@ app.route('/long').post((req, res) => {
     startDate = getDay(startDate);
   }
 
-  //console.log(values);
   
   const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
   const client = new Client({
     host: '127.0.0.1',
     user: 'postgres',
+
     database: 'SWE4103_db',
-    password: db_password,
+    password: 'SWE4103',
     port: 5432,
     });
+
+
     client.connect(err => {
       if (err) {
         console.error('connection error', err.stack)
       } else {
-      //console.log('connected')
+      
         values.forEach(row => {
           client.query(text, row, (err, pgres) => {
             if (err) {
@@ -349,5 +418,3 @@ function getDay(d)
   return date;
 }
 
-
-module.exports = app;
