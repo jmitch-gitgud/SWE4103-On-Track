@@ -108,13 +108,12 @@ function Login() {
 
             </div>                                  
 
-
           </div>
             {renderErrorMessage("Invalid")}
             {renderErrorMessage("Error")}
           </div>
           <div className="abs-button-container">
-            <input className="abs-button" type="submit" value="Login"/>
+            <input className="abs-button" type="submit" value="Sign In"/>
           </div>
         </form>
       </div>
@@ -129,10 +128,7 @@ function Login() {
   return (
     <div>
       <Header />
-      <div className="login-form">
-        <div className="login-header padding-top-16">
-          <h1 className="pageHeader">Sign In</h1>
-        </div>
+      <div className="login-form padding-top-32">
         {isSubmitted ? 
           <div className="login-success">
           

@@ -548,3 +548,65 @@
   width: 62rem;
   padding-top: 1rem;
 }
+
+.file{
+  padding-top: 1rem;
+  width: 16rem;
+  text-align: center;
+  height: 2.5rem;
+  border-radius: 4px;
+  opacity: 0;
+}
+
+.uploadfiletext{
+  padding-top: 0.4rem;
+  width: 16rem;
+  height: 2.5rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border-color: rgb(81, 131, 240);
+  color: white;
+  margin: auto;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.uploadfiletext:hover {
+  background-color: rgb(23, 23, 128)
+}
+
+.file-text{
+  color: grey;
+  margin: auto;
+  font-weight: 600;
+  font-size: 1.1rem;
+ }
+
+ .upload-button{
+  width: 8rem;
+  height: 2.5rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border-color: rgb(81, 131, 240);
+  color: white;
+ }
+
+ .upload-button:hover {
+  background-color: rgb(23, 23, 128);
+ }
+
+ .item {
+  display: flex;
+  flex-direction: row;
+ }
+
+ .upload-buffer {
+  width: 2rem;
+ }
+
+ .want-to {
+  font-size: 1.3rem;
+  color: rgb(155, 155, 155)
+ }

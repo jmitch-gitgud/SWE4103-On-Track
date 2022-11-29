@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 function HeaderUploadTermSchedule() {
   return (
+    <div>
     <header>
         <h2>
             On Track
@@ -12,8 +13,9 @@ function HeaderUploadTermSchedule() {
             </button>
             </Link>
         </h2>
+    </header> 
 
-        <h3>          
+        <h3 className="link-container">          
             <Link className="link" to="/oa">
                 Home 
             </Link>  
@@ -21,8 +23,8 @@ function HeaderUploadTermSchedule() {
                 {" > "} Upload Term Schedule
             </Link>                
         </h3> 
-           
-    </header>               
+    </div>    
+                  
   );
 }
 

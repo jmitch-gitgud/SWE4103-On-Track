@@ -126,14 +126,16 @@ const columns = [
   return (
     <div>
     <Table 
-        style={{ width: '1000px', paddingTop: '30px'}} 
+        className="abs-table" 
         dataSource={populateTable()} 
         columns={columns} 
         bordered
         pagination = {false}
       />
-      <button onClick = {handleBackward} className = "paginationButtons"> {back} </button>
-      <button onClick = {handleForward} className = "paginationButtons forwards"> {forward} </button>
+      <div className="padding-top-8">
+      <button onClick = {handleBackward} className = "pagination-button padding"> {back} </button>
+      <button onClick = {handleForward} className = "pagination-button forward"> {forward} </button>
+      </div>
     </div>
     
   );

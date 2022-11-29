@@ -1,5 +1,6 @@
 import Header from "../HeaderUploadTermSchedule";
 import React, { Component }  from "react";
+import Footer from "../Footer";
  
 const options = [
     {
@@ -100,7 +101,7 @@ class UploadTermSchedule extends Component{
         <div>
             <Header />
           
-            <div className="login-header padding-top-64">
+            <div className="login-header padding-top-32">
             <h1 className="pageHeader">Upload Term Schedule</h1>
             </div>
 
@@ -139,20 +140,21 @@ class UploadTermSchedule extends Component{
             <div className="padding-top-32">
                 <div className="abs-button-container">
                     {this.state.isNoFileSelected ?                    
-                        <div className="error">{"No File Selected"}</div>
+                        <div className="error-message">{"No File Selected"}</div>
                     : emptyRender
                     }
                     {this.state.isFailure ?                    
-                        <div className="error">{"Failed to Upload File"}</div>
+                        <div className="error-message">{"Failed to Upload File"}</div>
                     : emptyRender
                     }
                     {this.state.isSuccess ?                    
-                        <div className="success">{"File Inserted"}</div>
+                        <div className="success-message">{"File Inserted"}</div>
                     : emptyRender
                     }
                 </div>
            </div>
-           <input className="file" name="file-upload" id="file-upload"type="file"  key={this.state.inputKey2} onChange={this.onScheduleFile} />                   
+           <input className="file" name="file-upload" id="file-upload"type="file"  key={this.state.inputKey2} onChange={this.onScheduleFile} />    
+           <Footer />               
         </div>        
                
         );
