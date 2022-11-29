@@ -8,7 +8,7 @@ function Supply(){
             <Header />
            
             <div className="login-header padding-top-64">
-                <h1 className="padding-bottom-24">Welcome Supply Teacher</h1>
+                <h1 className="pageHeader">Welcome Supply Teacher</h1>
             </div>
             <Footer />
         </div>

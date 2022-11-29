@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FormControl } from "react-bootstrap";
-//import Form from 'react-bootstrap/Form';
-//import { render } from 'react-dom';
 import Calendar from '../Calendar'
 import { Link } from "react-router-dom";
-//import Header from "../Header";
 import Footer from "../Footer";
 import "./ChangeDate.css";
 
@@ -15,6 +12,8 @@ function ChangeDate(){
 
   const [names, setNames] = useState([]);
   const [data, setData] = useState([]);
+  const [teacherFirstName, setTeacherFirstName] = useState()
+  const [teacherLastName, setTeacherLastName] = useState()
 
   const handleSelect=(e)=>{
     fetch(`/user?staff_id=${e}`, {
@@ -24,8 +23,25 @@ function ChangeDate(){
       return response.json();
     }).then(data =>
       {
+        console.log(data);
         setData(data);
       })
+
+    fetch('/user', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    }).then(response => {
+      return response.json();
+    }).then(data =>
+      {
+        for(var i = 0; i < data.names.length; i++){
+          if(data.names[i].staff_id === parseInt(e)){
+            setTeacherFirstName(data.names[i].first_name)
+            setTeacherLastName(data.names[i].last_name)
+          }
+        }
+    })
+      
   }
 
   
@@ -42,17 +58,29 @@ function ChangeDate(){
   }
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-    <a
-      href="a"
-      ref={ref}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick(e);
-      }}
-    >
-      {children}
-      &#x25bc;
-    </a>
+    <div className="theme-text padding-left-128"
+          
+          ref={ref}
+          onClick={(e) => {
+            e.preventDefault();
+            onClick(e);
+          }}
+        >
+          {children}
+                   
+          <button className="teacher-container-2">
+            <p>
+              {teacherFirstName ?
+              (teacherFirstName + ' ' + teacherLastName)
+              :
+              'Select Teacher'
+              }
+              &nbsp;
+              &#x25bc;
+            </p>
+            
+          </button>
+        </div>
   ));
 
   const CustomMenu = React.forwardRef(
@@ -60,10 +88,10 @@ function ChangeDate(){
       const [value, setValue] = useState("");
   
       return (
-        <div
+        <div 
           ref={ref}
           style={style}
-          className={className}
+          className={className} 
           aria-labelledby={labeledBy}
         >
           <FormControl
@@ -88,27 +116,33 @@ function ChangeDate(){
     <div>
 
       <Header />
-      <Link to="/OA">
-        <button>Back</button>
-      </Link>
-      <Dropdown className = "tableSize" onSelect={handleSelect} onToggle={handleToggle}>
+      
+      <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
 
-        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-          Select Teacher
-        </Dropdown.Toggle>
+        <div className="padding-top-16">
 
-        <Dropdown.Menu as={CustomMenu}>
-          
-          {names.map(stuff =>(
-            <Dropdown.Item eventKey={stuff.staff_id}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
-          ))}
-          
-        </Dropdown.Menu>
-        <Calendar data= {data} />
-        {/* <Link to="/login" state={{ name : names }}>
-        <button className = "addAbsenceButton">Add Absence</button>
-        </Link> */}
+          <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu as={CustomMenu}>
+            
+            {names.map(stuff =>(
+              <Dropdown.Item eventKey={stuff.staff_id}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
+            ))}
+            
+          </Dropdown.Menu>
+        </div>
+
+        <div className = "container-vertical">
+          <Calendar data= {data} />
+          {/* <Link to="/login" state={{ name : names }}>
+          <button className = "addAbsenceButton">Add Absence</button>
+          </Link> */}
+        
+        </div>
+
       </Dropdown>
+      
     </div>
   );
 }
