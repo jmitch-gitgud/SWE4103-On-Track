@@ -65,6 +65,25 @@ test('Adding a Single-Day Absence', async () => {
      return data
  }
 
+// ========== '/long' endpoint ===========
+ test('Adding a Multi-Day Absence', async () => {
+    await expect(addMultiDayAbsence()).resolves.toStrictEqual({"status" : "inserted"});
+});
+
+async function addMultiDayAbsence(){
+
+   let payload = {
+    StartDate: '2022-12-12',
+    EndDate: '2023-01-01',
+    Staff: 135
+       
+   }
+
+    let res = await axios.post('http://localhost:3001/long', payload);
+    let data = res.data
+    return data
+}
+
 // ========== '/oncall' endpoint ===========
 test('Generating Oncalls', async () => {
     await expect(genOncalls()).resolves.toStrictEqual({Oncalls : [["L M", "Study Hall", "p2", "Math"]]});
