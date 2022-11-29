@@ -65,7 +65,24 @@ test('Adding a Single-Day Absence', async () => {
      return data
  }
 
+// ========== '/oncall' endpoint ===========
+test('Generating Oncalls', async () => {
+    await expect(genOncalls()).resolves.toStrictEqual({Oncalls : [["L M", "Study Hall", "p2", "Math"]]});
+});
 
+async function genOncalls(){
+
+    let payload = {
+        Avail: [{staff_id: 1, period1: "Math", period2: "Math", period3: "free",period4: "Math", first_name: "L", last_name: "M"}, 
+        {staff_id: 2, period1: "free", period2: "Math", period3: "Hist",period4: "Math", first_name: "C", last_name: "D"}],
+        Abs: [{staff_id: 1, period1: "", period2: "A", period3: "",period4: "", first_name: "L", last_name: "M"}]
+    }
+
+
+    let res = await axios.post('http://localhost:3001/oncall', payload);
+    let data = res.data
+    return data
+}
 
 // === TEST for Role Assignment, '/check' endpoint ===
 
