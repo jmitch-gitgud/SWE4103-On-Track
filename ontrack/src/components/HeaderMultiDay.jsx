@@ -3,31 +3,33 @@ import { Link } from "react-router-dom";
 
 function HeaderMultiDay() {
   return (
-    <header>
-      <h2>
-          On Track
+    <div>
+      <header>
+        <h2>
+            On Track
 
-          <Link to="/">
-          <button className="logout-button" type="button">
-            Sign Out
-          </button>
+            <Link to="/">
+              <button className="logout-button" type="button">
+                Sign Out
+              </button>
+            </Link>
+
+        </h2>
+        </header>
+        <h3 className="link-container">   
+          <Link className="link" to="/oa">
+            Home 
+          </Link> 
+          <Link className="link" to="/enter-work-related-absences">
+            {" > "}Work-Related Absences
+          </Link>   
+          <Link className="link" to="/add-multi-day">
+            {" > "}Multi-Day
           </Link>
-
-      </h2>
-
-      <h3>   
-        <Link className="link" to="/oa">
-          Home 
-        </Link> 
-        <Link className="link" to="/enter-work-related-absences">
-          {" > "}Work-Related Absences
-        </Link>   
-        <Link className="link" to="/add-multi-day">
-          {" > "}Multi-Day
-        </Link>
-      </h3>   
+        </h3>   
+        
       
-    </header>
+    </div>
 
                       
                      

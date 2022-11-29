@@ -35,8 +35,10 @@ function EnterAbsences()
                         </button>
                     </Link>
                 </div>
-            </div>          
-            
+            </div>  
+            <div className="padding-top-64">   
+            <Footer />
+            </div> 
         </div>
     );   
 }

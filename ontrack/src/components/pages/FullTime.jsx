@@ -9,7 +9,7 @@ function FullTime(){
             <Header />
           
             <div className="login-header padding-top-64">
-                <h1 className="padding-bottom-24">Welcome Full Time Teacher</h1>
+                <h1 className="pageHeader">Welcome Full Time Teacher</h1>
             </div>
             <Footer />
         </div>

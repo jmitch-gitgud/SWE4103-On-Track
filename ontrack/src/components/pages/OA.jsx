@@ -204,22 +204,15 @@ class OA extends Component {
                 
                                            
                 
-                <div className="login-header padding-top-64">
+                <div className="login-header padding-top-32">
 
 
-                    <h1 className="padding-bottom-16">Welcome Office Administrator</h1>               
+                    <h1 className="pageHeader">Welcome Office Administrator</h1>               
                     <Link to="/enter-work-related-absences">
                         <button>Enter Work Related Absences</button>
                     </Link>
                     
-                    <h3 className="upload padding-top-test">Upload Work Related Absences</h3>
-                    <Link to="/AddAbs">
-                        <button>Add long term absence</button>
-                    </Link>
-                    &nbsp;
-                    <Link to="/AddShort">
-                        <button>Add single day absence</button>
-                    </Link>
+                    
                     <h3 className="upload padding-top-test">Upload Term Schedule</h3>
                     <input className="file" type="file" key={this.state.inputKey2} onChange={this.onScheduleFile} />
 
