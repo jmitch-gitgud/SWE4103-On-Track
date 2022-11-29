@@ -38,7 +38,6 @@ test( <'INSERT TEST NAME HERE'>, async() => {
 const axios = require('axios');
 const app = require('../app');
 
-
 // ========= VERY BASIC EXAMPLE (no external function call) =============
 test('Hopefully, a helpful test', () => {
     expect(6 + 6).toBe(12);
@@ -47,10 +46,10 @@ test('Hopefully, a helpful test', () => {
 
 // ========== '/short' endpoint ===========
 test('Adding a Single-Day Absence', async () => {
-    await expect(addSingleDayAbs()).resolves.toStrictEqual({"status" : "inserted"});
-});
+     await expect(addSingleDayAbs()).resolves.toStrictEqual({"status" : "inserted"});
+ });
 
-async function addSingleDayAbs(){
+ async function addSingleDayAbs(){
 
     let payload = {
         AbsDate: '2023-01-01',
@@ -61,10 +60,10 @@ async function addSingleDayAbs(){
         P4: false,
     }
 
-    let res = await axios.post('http://localhost:3001/short', payload);
-    let data = res.data
-    return data
-}
+     let res = await axios.post('http://localhost:3001/short', payload);
+     let data = res.data
+     return data
+ }
 
 
 
@@ -77,9 +76,8 @@ test('Testing Role Assignment - OA', async () => {
 async function doPostRequest() {
 
     let payload = {
-
-        Username: 'user1000',
-        Password: 'pass1000'
+        Username: 'officeAdminUser',
+        Password: 'oapassword'
     };
 
     let res = await axios.post('http://localhost:3001/check', payload);
@@ -87,10 +85,5 @@ async function doPostRequest() {
     let data = res.data;
     return data;
 }
-
-
-
-
-
 
 

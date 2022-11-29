@@ -30,6 +30,16 @@ jobs:
         run: |
           cd backend
           npm install
+          npm install jest
+      - name: setup database
+        run: |
+          cd backend
+          node setup_postgres.js
+        env:
+          # The hostname used to communicate with the PostgreSQL service container
+          POSTGRES_HOST: postgres
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
       - name: Run tests
         run: |
           cd backend

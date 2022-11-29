@@ -37,7 +37,7 @@ app.route('/check').post((req, res) => {
   
     
   const client = new Client({
-    host: '127.0.0.1', 
+    host: 'postgres', 
     user: 'postgres',
     database: 'SWE4103_db',
     password: db_password,
@@ -101,11 +101,10 @@ app.route('/user')
 
       
   const client = new Client({
-    host: '127.0.0.1', 
+    host: 'postgres', 
     user: 'postgres',
-
     database: 'SWE4103_db',
-    password: 'SWE4103',
+    password: db_password,
     port: 5432,
   });
   
@@ -133,11 +132,10 @@ app.route('/user')
 
     
   const client = new Client({
-    host: '127.0.0.1', 
+    host: 'postgres', 
     user: 'postgres',
-
     database: 'SWE4103_db',
-    password: 'SWE4103',
+    password: db_password,
     port: 5432,
   });
   
@@ -221,7 +219,7 @@ app.route('/absences').get(async (req,res) => {
   const text = "SELECT * FROM work_abscense NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
 
     const client = new Client({
-        host: '127.0.0.1', 
+        host: 'postgres', 
         user: 'postgres',
         database: 'SWE4103_db',
         password: db_password,
@@ -250,7 +248,7 @@ app.route('/avail').get(async (req,res) => {
 
 
     const client = new Client({
-        host: '127.0.0.1', 
+        host: 'postgres', 
         user: 'postgres',
         database: 'SWE4103_db',
         password: db_password,
@@ -324,10 +322,10 @@ app.route('/short').post((req, res) => {
   
   const client = new Client({
 
-  host: '127.0.0.1',
+  host: 'postgres',
   user: 'postgres',
   database: 'SWE4103_db',
-  password: 'SWE4103',
+  password: db_password,
   port: 5432,
 });
   client.connect(err => {
@@ -353,7 +351,6 @@ app.route('/long').post((req, res) => {
   staff = req.body.Staff;
   startDate = new Date(req.body.StartDate);
   endDate = new Date(req.body.EndDate);
-  count = 0;
   end = 0;
   values = [];
   for (var d = new Date(req.body.StartDate); d <= new Date(req.body.EndDate); d.setDate(d.getDate() + 1)) {
@@ -361,17 +358,16 @@ app.route('/long').post((req, res) => {
     value = [staff, date, "A", "A", "A", "A"];  
     values.push(value);
   }
-  //console.log(values);
 
   
   
   const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
   const client = new Client({
-    host: '127.0.0.1',
+    host: 'postgres',
     user: 'postgres',
     database: 'SWE4103_db',
-    password: 'SWE4103',
+    password: db_password,
     port: 5432,
     });
     client.connect(err => {
@@ -406,10 +402,3 @@ app.route('/long').post((req, res) => {
   
 }); 
 
-function getDay(d)
-{
-  d = new Date(d);
-  var date = new Date();
-  date.setDate(d.getDate() + 1);
-  return date;
-}
