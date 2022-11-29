@@ -3,7 +3,7 @@
 /*
 
 test( <'INSERT TEST NAME HERE'>, async() => {
-    await expect(<DATA HERE>).<MATCHER HERE>( <EXPECTED RESULTS HERE> );
+    await expect(<CALL TO FUNCTION>).resolves.toStrictEqual( <EXPECTED RESULTS HERE> );
 });
 
 */
@@ -51,21 +51,24 @@ test('Adding a Single-Day Absence', async () => {
 
  async function addSingleDayAbs(){
 
-     let payload = {
-         AbsDate: '2023-01-01',
-         Staff: 3,
-         P1: true,
-         P2: false,
-         P3: false,
-         P4: false,
-     }
+    let payload = {
+        AbsDate: '2023-01-01',
+        Staff: 1,
+        P1: true,
+        P2: false,
+        P3: false,
+        P4: false,
+    }
 
      let res = await axios.post('http://localhost:3001/short', payload);
      let data = res.data
      return data
  }
 
+
+
 // === TEST for Role Assignment, '/check' endpoint ===
+
 test('Testing Role Assignment - OA', async () => {
     await expect(doPostRequest()).resolves.toStrictEqual({ "page": "/oa", "status": "Logged in" });
 });
