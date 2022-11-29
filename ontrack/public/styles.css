@@ -584,7 +584,7 @@
   text-align: center;
   background: #3741A1;
   border-radius: 4px;
-  border-color: rgb(81, 131, 240);
+  border: 2px solid rgb(81, 131, 240);
   color: white;
   margin: auto;
   font-weight: 600;
