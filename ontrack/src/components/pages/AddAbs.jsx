@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import Button from "react-bootstrap/Button";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FormControl } from "react-bootstrap";
+import subDays from "date-fns/subDays";
 
 function AddAbs()
 {
@@ -154,8 +155,19 @@ function AddAbs()
           <div className="padding-top-16">
             <div className="abs-button-container">
               <div className="select-multi-dates-container">
-                Select Start Date<DatePicker className="select-date" selected={startDate} onChange={(date) => setStartDate(date)} />
-                Select End Date<DatePicker className="select-date" selected={endDate} onChange={(date) => setEndDate(date)} />
+                Select Start Date
+                <DatePicker className="select-date" 
+                selected={startDate} 
+                onChange={(date) => setStartDate(date)} 
+                minDate={subDays(new Date(),-1)}
+                />
+                Select End Date
+                <DatePicker 
+                className="select-date" 
+                selected={endDate} 
+                onChange={(date) => setEndDate(date)} 
+                minDate={subDays(new Date(),-1)}
+                />
               </div>
             </div>
           </div>

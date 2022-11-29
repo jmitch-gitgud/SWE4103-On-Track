@@ -6,6 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { FormControl } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import Footer from "../Footer";
+import subDays from "date-fns/subDays";
 
 function AddAbs()
 {
@@ -179,7 +180,7 @@ function AddAbs()
                 <p className="select-date-container"> 
                   Select Date
                   <DatePicker 
-                    selected={startDate} onChange={(date) => setStartDate(date)} className="select-date"
+                    selected={startDate} onChange={(date) => setStartDate(date)} minDate={subDays(new Date(),-1)} className="select-date"
                   />               
                 </p>
               </div>
