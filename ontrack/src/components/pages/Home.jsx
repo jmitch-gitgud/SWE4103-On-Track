@@ -7,10 +7,9 @@ function Home() {
   return (
     <div>
       <Header />
-      <div className="login-header padding-top-64">
-        <div className="padding-bottom-16">
-          <h1 className="pageHeader">On Track</h1>
-        </div>
+      <div className="login-header padding-top-128">
+        
+        <h1 className="padding-bottom-16">On Track</h1>
         <p className="padding-bottom-32">Stay on task with On Track!</p>
         <nav>
           <Link to="/login">
@@ -21,9 +20,7 @@ function Home() {
         </nav>
         
       </div>
-      <div className="padding-top-64">
       <Footer />
-      </div>
     </div>
   );
 }

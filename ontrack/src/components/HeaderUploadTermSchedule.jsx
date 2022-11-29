@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function HeaderEnterAbs() {
+function HeaderUploadTermSchedule() {
   return (
     <header>
         <h2>
@@ -17,8 +17,8 @@ function HeaderEnterAbs() {
             <Link className="link" to="/oa">
                 Home 
             </Link>  
-            <Link className="link" to="/enter-work-related-absences">
-                {" > "} Work-Related Absences
+            <Link className="link" to="/upload-term-schedule">
+                {" > "} Upload Term Schedule
             </Link>                
         </h3> 
            
@@ -26,4 +26,4 @@ function HeaderEnterAbs() {
   );
 }
 
-export default HeaderEnterAbs;
+export default HeaderUploadTermSchedule;

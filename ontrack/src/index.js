@@ -12,6 +12,7 @@ import FullTime from "./components/pages/FullTime";
 import VP from "./components/pages/VP";
 import ChangeDate from "./components/pages/ChangeDate";
 import EnterAbs from "./components/pages/EnterAbsences";
+import UploadTermSchedule from "./components/pages/UploadTermSchedule";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="add-multi-day" element={<AddAbs />} />
             <Route path="add-single-day" element={<AddShort />} />
             <Route path="enter-work-related-absences" element={<EnterAbs />} />
+            <Route path="upload-term-schedule" element={<UploadTermSchedule />} />
           </Route>
         </Routes>
       </BrowserRouter>

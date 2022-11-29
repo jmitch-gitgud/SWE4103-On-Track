@@ -10,33 +10,16 @@ import { FormControl } from "react-bootstrap";
 
 function AddAbs()
 {
-    const [errorMessage, setErrorMessage] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [names, setNames] = useState([]);
     const [teacher, setTeacher] = useState(1);
-    const [teacherFirstName, setTeacherFirstName] = useState()
-    const [teacherLastName, setTeacherLastName] = useState()
     var status;
     let data = {StartDate: startDate, EndDate: endDate, Staff: teacher};
 
     const handleSelect=(e)=>{
         setTeacher(e);
-        fetch('/user', {
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'}
-        }).then(response => {
-          return response.json();
-        }).then(data =>
-          {
-            for(var i = 0; i < data.names.length; i++){
-              if(data.names[i].staff_id === parseInt(e)){
-                setTeacherFirstName(data.names[i].first_name)
-                setTeacherLastName(data.names[i].last_name)
-              }
-            }
-        }) 
+        
       }
 
     const handleToggle=(e)=>{
@@ -53,7 +36,7 @@ function AddAbs()
     
       const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <button
-          className="select-teacher"
+          className="select"
           ref={ref}
           onClick={(e) => {
             e.preventDefault();
@@ -64,13 +47,6 @@ function AddAbs()
           Select Teacher
           &nbsp;
           &#x25bc;
-          <div className="teacher-container">
-            <p>
-            {teacherFirstName}
-            {' '}
-            {teacherLastName}
-            </p>
-          </div>
         </button>
       ));
     
@@ -114,13 +90,7 @@ function AddAbs()
             return response.json();
           }).then(data => {
             status = data.status;
-            if (status === 'inserted'){
-              setIsSubmitted(true);
-            }
-            else {
-              setErrorMessage(true);
-            }
-            
+            alert(status);
           }); 
         event.preventDefault();
     }
@@ -131,7 +101,7 @@ function AddAbs()
           <Header />
           <h1 className="pageHeader">Enter Multi-Day Absence</h1>
           
-          <div className="padding-top-32">
+          <div className="padding-top-64">
             <div className="abs-button-container">
               <div className="select">
                 <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
@@ -149,46 +119,23 @@ function AddAbs()
                 </Dropdown>
               </div>
             </div>
-          </div>
-
-          <div className="padding-top-16">
-            <div className="abs-button-container">
-              <div className="select-multi-dates-container">
-                Select Start Date<DatePicker className="select-date" selected={startDate} onChange={(date) => setStartDate(date)} />
-                Select End Date<DatePicker className="select-date" selected={endDate} onChange={(date) => setEndDate(date)} />
-              </div>
-            </div>
-          </div>
 
           <div className="padding-top-32">
-            <div className="abs-button-container">
-              <button className="button-submit" as="input" type="submit" value="Submit" onClick={onSubmit}>Submit</button>{' '}
+            <div className="selectDate">
+                Select Start Date<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                
+                <div className="selectEndDate">
+                Select End Date<DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+                </div>
+
+            </div>
             </div>
           </div>
 
-          <div className="container-vertical padding-top-16">
-          
-            {isSubmitted ?
-            <div className="success-message">
-              <p>
-                Absence Successfully Submitted
-              </p>
-            </div> 
-              :
-              <p></p>  
-            }
-            {errorMessage ?
-              <div className="error-message">
-                <p>
-                  Error Submitting Absence
-                </p>
-              </div>
-              :
-              <p></p>
-            }
-          
+          <div className="addAbs">
+            <Button as="input" type="submit" value="Submit" onClick={onSubmit}/>{' '}
           </div>
-          <Footer />
+
         </div>
       );   
 }

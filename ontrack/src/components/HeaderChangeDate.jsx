@@ -3,33 +3,30 @@ import { Link } from "react-router-dom";
 
 function HeaderChangeDate() {
   return (
-    <div>
-      <header>
-        <h2>
+    <header>
+      <h2>
+          On Track
 
-            On Track
-            
-            <Link to="/">
-            <button className="logout-button" type="button">
-            Sign Out
-            </button>
-            </Link>
+          <Link to="/">
+          <button className="logout-button" type="button">
+          Sign Out
+          </button>
+          </Link>
 
-        </h2>
-      </header>   
+      </h2>
 
-      <h3 className="link-container">          
+      <h3>          
 
           <Link className="link" to="/oa">
           Home 
           </Link>  
           <Link className="link" to="/changeDate">
-            {" > "}View Absences
+            {" > "}Abscences
           </Link>               
-          
+         
       </h3>   
-    </div>   
-                    
+        
+    </header>                     
                      
   );
 }
