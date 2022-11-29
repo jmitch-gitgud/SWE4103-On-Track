@@ -30,6 +30,10 @@ jobs:
         run: |
           cd backend
           npm install
+      - name: setup database
+        run: |
+          cd backend
+          node setup_postgres.js
       - name: Run tests
         run: |
           cd backend
