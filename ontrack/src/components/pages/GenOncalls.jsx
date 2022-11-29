@@ -48,7 +48,7 @@ function GenOncalls(){
         <div>
             <Header />
             <p></p>
-            <button onClick={onSubmit}>Generate Oncalls</button>
+            <button className="abs-button" onClick={onSubmit}>Generate Oncalls</button>
             <p></p>
             <Table striped bordered hover>
               <thead>

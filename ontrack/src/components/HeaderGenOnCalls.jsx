@@ -3,30 +3,29 @@ import { Link } from "react-router-dom";
 
 function HeaderOnCalls() {
   return (
+    <div>
     <header>
       <h2>
           On Track
 
+            <Link to="/">
+            <button className="logout-button" type="button">
+            Sign Out
+            </button>
+            </Link>
+      </h2>
+    </header>
 
- 
-                    <Link to="/">
-                    <button className="logout-button" type="button">
-                    Sign Out
-                    </button>
-                    </Link>
-
-                        </h2>
-
-                    <h3>          
-
-
-                    <Link className="link" to="/vp">
-                    Home 
-                   </Link>                  
-                    /Generate On Calls
-                    </h3>   
-                  
-                      </header>
+    <h3 className="link-container">          
+      <Link className="link" to="/vp">
+      Home 
+      </Link> 
+      <Link className="link" to="/generate-oncalls">                
+        {" > "} Generate On Calls
+      </Link> 
+    </h3>   
+          
+    </div>   
 
                       
                      
