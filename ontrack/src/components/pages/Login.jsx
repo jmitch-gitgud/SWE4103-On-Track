@@ -113,7 +113,7 @@ function Login() {
             {renderErrorMessage("Error")}
           </div>
           <div className="abs-button-container">
-            <input className="abs-button" type="submit" value="Sign In"/>
+            <input className="login-button" type="submit" value="Sign In"/>
           </div>
         </form>
       </div>

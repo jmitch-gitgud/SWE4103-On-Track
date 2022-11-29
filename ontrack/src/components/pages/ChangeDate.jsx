@@ -68,7 +68,7 @@ function ChangeDate(){
         >
           {children}
                    
-          <button className="abs-button">
+          <button className="abs-button-smaller">
             <p>
               {teacherFirstName ?
               (teacherFirstName + ' ' + teacherLastName)

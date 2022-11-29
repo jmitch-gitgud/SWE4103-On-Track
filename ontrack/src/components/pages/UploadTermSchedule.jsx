@@ -112,7 +112,7 @@ class UploadTermSchedule extends Component{
             </div>
 
 
-            <div className="padding-top-32">
+            <div className="padding-top-8">
                 <div className="abs-button-container">
                     <div className="file-text">
                         {selectedfilename}

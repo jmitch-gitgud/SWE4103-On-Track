@@ -9,9 +9,9 @@ function Home() {
       <Header />
       <div className="login-header padding-top-64">
         <div className="padding-bottom-16">
-          <h1 className="pageHeader">On Track</h1>
+          <h1 className="mainHeader">On Track</h1>
         </div>
-        <p className="padding-bottom-32">Stay on task with On Track!</p>
+        <p className="padding-bottom-32 want-to">Stay on task with On Track!</p>
         <nav>
           <Link to="/login">
             <button className="login-button" type="button">

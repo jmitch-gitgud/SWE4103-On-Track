@@ -14,7 +14,7 @@ class OA extends Component {
                 <div className="login-header padding-top-8">
 
                     <h1 className="pageHeader">Welcome Office Administrator</h1>
-                    <p className="want-to padding-top-16">I would like to...</p>               
+                    <p className="want-to padding-top-16">I Would Like To...</p>               
                     <div className="padding-top-16">
                         <div className="abs-button-container">
                             <Link to="/enter-work-related-absences">
