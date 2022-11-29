@@ -1,254 +1,404 @@
-import Header from "../HeaderSingleDay";
-import React, { useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
-import Button from "react-bootstrap/Button";
-import Dropdown from 'react-bootstrap/Dropdown';
-import { FormControl } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-import Footer from "../Footer";
+var express = require("express");
+var bodyParser = require('body-parser')
+const app = express();
+var http = require("http");
+const {Client} = require("pg");
+var server = http.createServer(app);
+let ReportWorkAbsences = require("./ReportWorkAbsences.js");
+let GetSheetNames = require("./GetSheetNames.js");
+let AssignOnCalls = require("./AssignOnCalls.js");
+let tester = require("./tester.js");
 
-function AddAbs()
-{
-    const [errorMessage, setErrorMessage] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const [startDate, setStartDate] = useState(new Date());
-    const [checkedP1, setCheckedP1] = useState(false);
-    const [checkedP2, setCheckedP2] = useState(false);
-    const [checkedP3, setCheckedP3] = useState(false);
-    const [checkedP4, setCheckedP4] = useState(false);
-    const [names, setNames] = useState([]);
-    const [teacher, setTeacher] = useState(1);
-    const [teacherFirstName, setTeacherFirstName] = useState()
-    const [teacherLastName, setTeacherLastName] = useState()
-    var status;
-    let data = {Staff: teacher, AbsDate: startDate, P1: checkedP1, P2: checkedP2, P3: checkedP3, P4: checkedP4};
+const listenPort = 3001;
+const db_password = 'SWE4103'
 
-    const handleSelect=(e)=>{
-        setTeacher(e);
-        fetch('/user', {
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'}
-        }).then(response => {
-          return response.json();
-        }).then(data =>
-          {
-            for(var i = 0; i < data.names.length; i++){
-              if(data.names[i].staff_id === parseInt(e)){
-                setTeacherFirstName(data.names[i].first_name)
-                setTeacherLastName(data.names[i].last_name)
-              }
-            }
-        })     
-    }
+app.use(bodyParser.json({limit: '1mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '1mb', extended: true}))
 
-    const handleToggle=(e)=>{
-        fetch('/user', {
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'}
-        }).then(response => {
-          return response.json();
-        }).then(data =>
-          {
-            setNames(data.names)
-            
-          })
-    }
-    
-    const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+// Allow CORS support and remote requests to the service
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, OPTIONS');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
+  next();
+});
+
+server.listen(listenPort, "127.0.0.1");
+
+app.route('/check').post((req, res) => {
+  username = req.body.Username;
+  password = req.body.Password;
+
+  const text = 'SELECT role_id FROM "public"."staff" WHERE "username" = $1 AND "password" = $2'
+  const values = [username, password]
+  let rightPage;
+
   
-      <button
-        className="select-teacher"
-        ref={ref}
-        onClick={(e) => {
-          e.preventDefault();
-          onClick(e);
-        }}
-      >
-        {children}
-        Select Teacher
-        &nbsp;
-        &#x25bc;
-        <div className="teacher-container">
-          <p>
-          {teacherFirstName}
-          {' '}
-          {teacherLastName}
-          </p>
-        </div>
-      </button>
+    
+  const client = new Client({
+    host: '127.0.0.1', 
+    user: 'postgres',
+    database: 'SWE4103_db',
+    password: db_password,
+    port: 5432,
+  });
 
-    ));
-    
-    const CustomMenu = React.forwardRef(
-      ({ children, style, className, "aria-labelledby": labeledBy }, ref) => {
-        const [value, setValue] = useState("");
-    
-        return (
-          <div
-            ref={ref}
-            style={style}
-            className={className}
-            aria-labelledby={labeledBy}
-          >
-            <FormControl
-              autoFocus
-              className="mx-3 my-2 w-auto"
-              placeholder="Type to filter..."
-              onChange={(e) => setValue(e.target.value)}
-              value={value}
-            />
-            <ul className="list-unstyled">
-              {React.Children.toArray(children).filter(
-                (child) =>
-                  !value || child.props.children.toLowerCase().startsWith(value)
-              )}
-            </ul>
-          </div>
-        );
+  client.connect(err => {
+    if (err) {
+      console.error('connection error', err.stack)
+    } else {
+      //console.log('connected')
+      client.query(text, values, (err, pgres) => {
+        if (err) {
+          console.log(err.stack)
+          res.writeHead(500, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({status: "ERROR"}));
+        } else {
+          if (pgres.rowCount === 0) {
+          res.writeHead(404, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({status: "Invalid credentials"}));
+          } else {
+            if(pgres.rows[0].role_id == 1)
+            {                                  
+               rightPage =  "/fulltime";                                  
+            }
+
+            if(pgres.rows[0].role_id == 2)
+            {
+               rightPage =  "/supply";
+            }
+
+            if(pgres.rows[0].role_id == 3)
+            {
+               rightPage = "/oa";
+            }
+
+            if(pgres.rows[0].role_id == 4)
+            {
+               rightPage = "/vp";
+            }
+
+            if(pgres.rows[0].role_id == 5)
+            {
+               rightPage =  "/operations";
+            }
+
+
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({status: "Logged in", page: rightPage}));
+            }
+          }
+        });
       }
-    );
+  })
+}); 
 
-    const handleCheck = (e) => {
-        if (e.target.name == "P1")
-        {
-            setCheckedP1(!checkedP1);
-        }
-        else if (e.target.name == "P2")
-        {
-            setCheckedP2(!checkedP2);
-        }
-        else if (e.target.name == "P3")
-        {
-            setCheckedP3(!checkedP3);
-        }
-        else if (e.target.name == "P4")
-        {
-            setCheckedP4(!checkedP4);
-        }
-    }
+
+app.route('/user')
+.get((req, res, next) => {
+  const text = 'SELECT * FROM fulltime_teacher NATURAL JOIN staff'
+
+      
+  const client = new Client({
+    host: '127.0.0.1', 
+    user: 'postgres',
+    database: 'SWE4103_db',
+    password: db_password,
+    port: 5432,
+  });
+  
+  client.connect(err => {
+    if (err) {
+      console.error('connection error', err.stack)
+    } else {
+      client.query(text, (err, pgres) => {
+        if (err) {
+            res.writeHead(404, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({status: "Invalid credentials"}));
+        } else {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({names : pgres.rows}));
+          }
+        });
+          }
+  })
+  //client.close();
+})
+.post((req, res, next) => {
+  
+  let staff_id = req.query.staff_id
+  const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
+
     
-    const onSubmit = (event) => {
-        fetch('/short', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-            'Content-Type': 'application/json'
-           } 
-          }).then(function(response) {
-            return response.json();
-          }).then(data => {
-            status = data.status;
-            if (status === 'inserted'){
-              setIsSubmitted(true)
+  const client = new Client({
+    host: '127.0.0.1', 
+    user: 'postgres',
+    database: 'SWE4103_db',
+    password: db_password,
+    port: 5432,
+  });
+  
+    client.connect(err => {
+
+      if (err) {
+        console.error('connection error', err.stack)
+      } else {
+        client.query(text, (err, pgres) => {
+          if (err) {
+              res.writeHead(404, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({status: "Invalid credentials"}));
+          } else {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({names : pgres.rows}));
             }
-            else {
-              setErrorMessage(true)
+          });
             }
-          }); 
-        event.preventDefault();
-        
-    }
+    })
+})
+.all((req, res, next) => {
+  console.log("all")
+res.send('Other requests called');
+}); 
+
+app.route('/SheetNames').post((req, res) => {
+  console.log(req.body.filename);
+  let filename = req.body.filename;
+
+  let name = GetSheetNames.GetSheetNames(filename);
+
+  if(name === [])
+  {
+    res.writeHead(395, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "Invalid or Empty File"}));
+  }
+  else
+  {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "Success", sheets: name}));
+  }
+});
 
 
-    return (
-        
-      <div >
-          <Header />
-          <h1 className="pageHeader">Enter Single-Day Absence</h1>
-          
-          <div className="padding-top-16 container-vertical"> 
-           
-            <div className="container-horizontal">
-            
-              <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
-                  <Dropdown.Toggle 
-                    as={CustomToggle} id="dropdown-custom-components">
-                  </Dropdown.Toggle>
+app.route('/WorkAbs').post((req, res) => {
+  let filename = req.body.filename;
+  let index = req.body.sheetIndex;
 
-                  <Dropdown.Menu as={CustomMenu}>
-                      {names.map(stuff =>(
-                          <Dropdown.Item eventKey={stuff.staff_id}>{stuff.first_name + " " + stuff.last_name}</Dropdown.Item>
-                      ))}
-                  </Dropdown.Menu>
-              </Dropdown>
-              
-              &nbsp;
-              &nbsp;
+  let result = ReportWorkAbsences.ReportWorkAbsences(filename, index);
 
-              <div className="padding-top-16">
-                <p className="select-date-container"> 
-                  Select Date
-                  <DatePicker 
-                    selected={startDate} onChange={(date) => setStartDate(date)} className="select-date"
-                  />               
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          
-          <div>
-            <div className="container-vertical">
-              <p className="checkbox-container">
-                  Select Periods
-                <div className="container-horizontal">
-                  <div className="container-vertical">
-                    P1
-                    <input type="checkbox" name="P1" onChange={handleCheck} className="checkbox"/>  
-                  </div> 
+  if(result === "Invalid File Type Given")
+  {
+    res.writeHead(395, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "Invalid File Type Given"}));
+  }
+  else
+  {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "File Successfully Inserted"}));
+  }
+});
 
-                  <div className="container-vertical">
-                    P2
-                    <input type="checkbox" name="P2" onChange={handleCheck} className="checkbox"/>
-                  </div> 
+app.route('/SendTerm').post((req, res) => {
+  let filename = req.body.filename;
 
-                  <div className="container-vertical">
-                    P3
-                    <input type="checkbox" name="P3" onChange={handleCheck} className="checkbox"/>
-                  </div>  
+  let result = tester.SendTermSchedule(filename);
 
-                  <div className="container-vertical">
-                    P4
-                    <input type="checkbox" name="P4" onChange={handleCheck} className="checkbox"/>
-                  </div> 
-                      
-                </div> 
-              </p>
-            </div>
-          </div>
+  if(result === "Invalid File Type Given")
+  {
+    res.writeHead(395, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "Invalid File Type Given"}));
+  }
+  else
+  {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({status: "File Successfully Inserted"}));
+  }
+}) ;
 
-          <div className="padding-top-8">  
-            <div className="abs-button-container">
-              <button className="button-submit" as="input" type="submit" value="Submit" onClick={onSubmit}>Submit</button>{' '}
-            </div>
-          </div> 
+app.route('/absences').get(async (req,res) => {
+  const text = "SELECT * FROM work_abscense NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
 
-        <div className="container-vertical padding-top-16">
-          
-            {isSubmitted ?
-            <div className="success-message">
-              <p>
-                Absence Successfully Submitted
-              </p>
-            </div> 
-              :
-              <p></p>  
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'SWE4103_db',
+        password: db_password,
+        port: 5432,
+      });
+      client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          client.query(text, (err, pgres) => {
+            if (err) {
+              console.error('connection error', err)
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "Error"}));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({Absences : pgres.rows})); 
+            }});
+              }
+      })
+});
+
+app.route('/avail').get(async (req,res) => {
+  const text = "SELECT * FROM schedule NATURAL JOIN staff"
+
+
+
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'SWE4103_db',
+        password: db_password,
+        port: 5432,
+      });
+      client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          client.query(text, (err, pgres) => {
+            if (err) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "Error"}));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({Avail : pgres.rows}));
             }
-            {errorMessage ?
-              <div className="error-message">
-                <p>
-                  Error Submitting Absence
-                </p>
-              </div>
-              :
-              <p></p>
-            }
-          
-        </div>
-        <Footer />
-        </div>
-      );
+            });
+              }
+      })
+});
+
+app.route('/oncall').post((req, res) => {
+  avail = req.body.Avail;
+  abs = req.body.Abs;
+  oncalls = AssignOnCalls.assign(avail,abs);
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify({Oncalls: oncalls}));
+
+});
+
+app.route('/short').post((req, res) => {
+  absdate = req.body.AbsDate;
+  staff = req.body.Staff;
+  if (req.body.P1 == true)
+  {
+    p1 = "A";
+  }
+  else
+  {
+    p1 = null;
+  }
+  if (req.body.P2 == true)
+  {
+    p2 = "A";
+  }
+  else
+  {
+    p2 = null;
+  }
+  if (req.body.P3 == true)
+  {
+    p3 = "A";
+  }
+  else
+  {
+    p3 = null;
+  }
+  if (req.body.P4 == true)
+  {
+    p4 = "A";
+  }
+  else
+  {
+    p4 = null;
+  }
+
+
+  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
+  const values = [staff,absdate, p1, p2, p3, p4]
+  
+  const client = new Client({
+
+  host: '127.0.0.1',
+  user: 'postgres',
+  database: 'SWE4103_db',
+  password: db_password,
+  port: 5432,
+});
+  client.connect(err => {
+    if (err) {
+      console.error('connection error', err.stack)
+    } else {
+      //console.log('connected')
+      client.query(text, values, (err, pgres) => {
+        if (err) {
+          console.log(err.stack)
+          res.writeHead(500, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({status: "ERROR"}));
+        } else {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({status: "inserted"}));
+        }});
+      }
+  })
+}); 
+
+
+app.route('/long').post((req, res) => {
+  staff = req.body.Staff;
+  startDate = new Date(req.body.StartDate);
+  endDate = new Date(req.body.EndDate);
+  end = 0;
+  values = [];
+  for (var d = new Date(req.body.StartDate); d <= new Date(req.body.EndDate); d.setDate(d.getDate() + 1)) {
+    date = new Date(d);
+    value = [staff, date, "A", "A", "A", "A"];  
+    values.push(value);
+  }
+
+  
+  
+  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
-}
+  const client = new Client({
+    host: '127.0.0.1',
+    user: 'postgres',
+    database: 'SWE4103_db',
+    password: db_password,
+    port: 5432,
+    });
+    client.connect(err => {
+      if (err) {
+        console.error('connection error', err.stack)
+      } else {
+      //console.log('connected')
+        values.forEach(row => {
+          client.query(text, row, (err, pgres) => {
+            if (err) {
+              console.log(err.stack)
+              if (end == 0)
+              {
+                res.writeHead(500, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "ERROR"}));
+                end = 1;
+                console.log(row);
+              }
+            } else {
+              if (end == 0)
+              {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({status: "inserted"}));
+                console.log(row);
+                end = -1;
+              }
+          }});
+        })
+      };
+    })
+  
+  
+}); 
 
-export default AddAbs;
