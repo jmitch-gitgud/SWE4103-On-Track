@@ -39,7 +39,7 @@ app.route('/check').post((req, res) => {
   
     
   const client = new Client({
-    host: '127.0.0.1', 
+    host: 'postgres', 
     user: 'postgres',
     database: 'postgres',
     password: db_password,
@@ -103,7 +103,7 @@ app.route('/user')
 
       
   const client = new Client({
-    host: '127.0.0.1', 
+    host: 'postgres', 
     user: 'postgres',
     database: 'postgres',
     password: db_password,
@@ -134,7 +134,7 @@ app.route('/user')
 
     
   const client = new Client({
-    host: '127.0.0.1', 
+    host: 'postgres', 
     user: 'postgres',
     database: 'postgres',
     password: db_password,
@@ -221,9 +221,9 @@ app.route('/absences').get(async (req,res) => {
   const text = "SELECT * FROM work_abscense NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
 
     const client = new Client({
-        host: '127.0.0.1', 
+        host: 'postgres', 
         user: 'postgres',
-        database: 'SWE4103_db',
+        database: 'postgres',
         password: db_password,
         port: 5432,
       });
@@ -250,9 +250,9 @@ app.route('/avail').get(async (req,res) => {
 
 
     const client = new Client({
-        host: '127.0.0.1', 
+        host: 'postgres', 
         user: 'postgres',
-        database: 'SWE4103_db',
+        database: 'postgres',
         password: db_password,
         port: 5432,
       });
@@ -324,7 +324,7 @@ app.route('/short').post((req, res) => {
   
   const client = new Client({
 
-  host: '127.0.0.1',
+  host: 'postgres',
   user: 'postgres',
   database: 'postgres',
   password: db_password,
@@ -367,7 +367,7 @@ app.route('/long').post((req, res) => {
   const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
   const client = new Client({
-    host: '127.0.0.1',
+    host: 'postgres',
     user: 'postgres',
     database: 'postgres',
     password: db_password,
