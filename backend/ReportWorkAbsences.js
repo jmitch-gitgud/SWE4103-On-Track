@@ -16,7 +16,7 @@ function ReportWorkAbsences(filename, sheetIndex)
         host: '127.0.0.1', 
         user: 'postgres',
         database: 'postgres',
-        password: 'Shadow12071207*',
+        password: 'postgres*',
         port: 5432,
       });
 
@@ -58,7 +58,7 @@ function ReportWorkAbsences(filename, sheetIndex)
             }
 
             //Stored Procedure would go here
-            const query = "INSERT INTO work_abscense(Absence_ID, Staff_ID,absence_date, Period1, " +
+            const query = "INSERT INTO work_absence(Absence_ID, Staff_ID,absence_date, Period1, " +
                         "Period2, Period3, Period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)"
 
             const query2 = "SELECT Staff_ID FROM staff WHERE username = $1"

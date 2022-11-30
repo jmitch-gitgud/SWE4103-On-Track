@@ -75,7 +75,7 @@ async function addMultiDayAbsence(){
    let payload = {
     StartDate: '2022-12-12',
     EndDate: '2023-01-01',
-    Staff: 135
+    Staff: 3
        
    }
 
@@ -112,8 +112,8 @@ test('Testing Role Assignment - OA', async () => {
 async function doPostRequest() {
 
     let payload = {
-        Username: 'officeAdminUser',
-        Password: 'oapassword'
+        Username: 'oa1',
+        Password: '$1$2yxZ/M.y$f3e.i0d7T/VyknuEgUmxl/'
     };
 
     let res = await axios.post('http://localhost:3001/check', payload);

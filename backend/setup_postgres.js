@@ -3,8 +3,8 @@ const { Client } = require('pg');
 const client = new Client({
     host: '127.0.0.1',
     user: 'postgres',
-    password: 'postgres',
-    database: 'postgres',
+    password: 'jordan_rocks',
+    database: 'testbase',
     port: 5432,
 });
 
@@ -23,7 +23,7 @@ const setupDatabase = async () => {
         await client.query("Create Table if not exists Areas(Area_ID Serial PRIMARY KEY, Area_Name VARCHAR(75) NOT NULL);");
         await client.query("Create Table if not exists FullTime_Teacher(Staff_ID integer NOT NULL PRIMARY KEY, School_ID integer NOT NULL, Teachable_Areas integer[] NOT NULL, CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID), CONSTRAINT fk_School_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
         await client.query("Create table if not exists Courses(Course_Code VARCHAR(5) NOT NULL UNIQUE PRIMARY KEY, Course_Title VARCHAR(50) NOT NULL, Course_Area integer NOT NULL, Course_Pathway integer NOT NULL, Grade_Level integer NOT NULL);");
-        await client.query("Create table if not exists Work_Abscense(Absence_ID SERIAL PRIMARY KEY, Staff_ID integer NOT NULL, Absence_Date date NOT NULL, Period1 VARCHAR(5), Period2 VARCHAR(5), Period3 VARCHAR(5), Period4 VARCHAR(5), CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
+        await client.query("Create table if not exists Work_Absence(Absence_ID SERIAL PRIMARY KEY, Staff_ID integer NOT NULL, Absence_Date date NOT NULL, Period1 VARCHAR(5), Period2 VARCHAR(5), Period3 VARCHAR(5), Period4 VARCHAR(5), CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
         await client.query("Create table if not exists Schedule(Staff_ID integer NOT NULL PRIMARY KEY, Period1 VARCHAR(5), Period2 VARCHAR(5), Period3 VARCHAR(5), Period4 VARCHAR(5), CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
         await client.query("Create Table if not exists Substitute_Teacher(Staff_ID integer NOT NULL PRIMARY KEY, Workable_Schools integer[] NOT NULL, Teachable_Areas integer[] NOT NULL, CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
 
@@ -69,12 +69,12 @@ const setupDatabase = async () => {
         await client.query("INSERT INTO schedule (staff_id, period1, period2, period3, period4) VALUES ((SELECT staff_id FROM staff WHERE username = 'FT11'), 'math', 'gym', 'free', 'art');");
         await client.query("INSERT INTO schedule (staff_id, period1, period2, period3, period4) VALUES ((SELECT staff_id FROM staff WHERE username = 'FT12'), 'math', 'gym', 'art', 'free');");
         await client.query("INSERT INTO schedule (staff_id, period1, period2, period3, period4) VALUES ((SELECT staff_id FROM staff WHERE username = 'FT13'), 'free', 'gym', 'art', 'math');");
-        await client.query("INSERT INTO work_abscense (absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, (SELECT staff_id FROM staff WHERE username = 'FT2'), '2022-11-27', 'A', 'A', '', '');");
-        await client.query("INSERT INTO work_abscense (absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, (SELECT staff_id FROM staff WHERE username = 'FT3'), '2022-11-27', '', 'A', '', '');");
-        await client.query("INSERT INTO work_abscense (absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, (SELECT staff_id FROM staff WHERE username = 'FT4'), '2022-11-27', '', '', 'A', '');");
-        await client.query("INSERT INTO work_abscense (absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, (SELECT staff_id FROM staff WHERE username = 'FT5'), '2022-11-27', '', '', 'A', 'A');");
+        await client.query("INSERT INTO work_absence (absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, (SELECT staff_id FROM staff WHERE username = 'FT2'), '2022-11-27', 'A', 'A', '', '');");
+        await client.query("INSERT INTO work_absence (absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, (SELECT staff_id FROM staff WHERE username = 'FT3'), '2022-11-27', '', 'A', '', '');");
+        await client.query("INSERT INTO work_absence (absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, (SELECT staff_id FROM staff WHERE username = 'FT4'), '2022-11-27', '', '', 'A', '');");
+        await client.query("INSERT INTO work_absence (absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, (SELECT staff_id FROM staff WHERE username = 'FT5'), '2022-11-27', '', '', 'A', 'A');");
 
-        await client.query("INSERT INTO FullTime_Teacher(staff_id, school_id, teachable_areas) VALUES (8, 1, '{1}');");
+        await client.query("INSERT INTO FullTime_Teacher(staff_id, school_id, teachable_areas) VALUES ((SELECT staff_id FROM staff WHERE username = 'FT8'), 1, '{1}');");
         await client.query("INSERT INTO FullTime_Teacher(staff_id, school_id, teachable_areas) VALUES (9, 1, '{2}');");
 
         return true;

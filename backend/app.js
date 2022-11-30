@@ -128,7 +128,7 @@ app.route('/user')
 .post((req, res, next) => {
   
   let staff_id = req.query.staff_id
-  const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
+  const text = 'SELECT * FROM work_absense WHERE staff_id = ' + staff_id
 
     
   const client = new Client({
@@ -216,7 +216,7 @@ app.route('/SendTerm').post((req, res) => {
 }) ;
 
 app.route('/absences').get(async (req,res) => {
-  const text = "SELECT * FROM work_abscense NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
+  const text = "SELECT * FROM work_absence NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
 
     const client = new Client({
         host: '127.0.0.1', 
@@ -317,7 +317,7 @@ app.route('/short').post((req, res) => {
   }
 
 
-  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
+  const text = 'INSERT INTO work_absence(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
   const values = [staff,absdate, p1, p2, p3, p4]
   
   const client = new Client({
@@ -361,7 +361,7 @@ app.route('/long').post((req, res) => {
 
   
   
-  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
+  const text = 'INSERT INTO work_absence(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
   const client = new Client({
     host: '127.0.0.1',
