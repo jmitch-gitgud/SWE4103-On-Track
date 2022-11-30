@@ -28,6 +28,7 @@ function GenOncalls(){
         }).then(data =>
             {
               setAbs(data.Absences);
+              console.log(data.Absences);
             })
         let data = {Avail: avail, Abs: abs};
         fetch('/oncall', {

@@ -50,6 +50,7 @@ function Login() {
       }).then(data => {
         status = data.status;
         nextPage = data.page;
+
         
 
         if (status === "Logged in") {

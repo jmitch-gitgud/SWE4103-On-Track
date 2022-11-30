@@ -41,8 +41,8 @@ app.route('/check').post((req, res) => {
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'SWE4103_db',
-    password: db_password,
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
   });
 
@@ -52,15 +52,28 @@ app.route('/check').post((req, res) => {
     } else {
       //console.log('connected')
       client.query(text, values, (err, pgres) => {
+
+
+
         if (err) {
           console.log(err.stack)
+      
           res.writeHead(500, { "Content-Type": "application/json" });
           res.end(JSON.stringify({status: "ERROR"}));
         } else {
           if (pgres.rowCount === 0) {
+
+
+
+
+            console.log("INVALID check");
+
+
+
           res.writeHead(404, { "Content-Type": "application/json" });
           res.end(JSON.stringify({status: "Invalid credentials"}));
           } else {
+
             if(pgres.rows[0].role_id == 1)
             {                                  
                rightPage =  "/fulltime";                                  
@@ -85,7 +98,7 @@ app.route('/check').post((req, res) => {
             {
                rightPage =  "/operations";
             }
-
+         
 
               res.writeHead(200, { "Content-Type": "application/json" });
               res.end(JSON.stringify({status: "Logged in", page: rightPage}));
@@ -101,16 +114,14 @@ app.route('/user')
 .get((req, res, next) => {
   const text = 'SELECT * FROM fulltime_teacher NATURAL JOIN staff'
 
-      
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
   });
-  
+
   client.connect(err => {
     if (err) {
       console.error('connection error', err.stack)
@@ -134,12 +145,11 @@ app.route('/user')
   const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
 
     
-  const client = new Client({
+   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
   });
   
@@ -150,6 +160,9 @@ app.route('/user')
       } else {
         client.query(text, (err, pgres) => {
           if (err) {
+
+            console.log("INVALID user");
+
               res.writeHead(404, { "Content-Type": "application/json" });
               res.end(JSON.stringify({status: "Invalid credentials"}));
           } else {
@@ -222,13 +235,15 @@ app.route('/SendTerm').post((req, res) => {
 app.route('/absences').get(async (req,res) => {
   const text = "SELECT * FROM work_abscense NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
 
-    const client = new Client({
-        host: '127.0.0.1', 
-        user: 'postgres',
-        database: 'SWE4103_db',
-        password: db_password,
-        port: 5432,
-      });
+  const client = new Client({
+    host: '127.0.0.1', 
+    user: 'postgres',
+    database: 'postgres',
+    password: 'Shadow12071207*',
+    port: 5432,
+  });
+
+
       client.connect(err => {
         if (err) {
           console.error('connection error', err.stack)
@@ -251,13 +266,15 @@ app.route('/avail').get(async (req,res) => {
 
 
 
-    const client = new Client({
-        host: '127.0.0.1', 
-        user: 'postgres',
-        database: 'SWE4103_db',
-        password: db_password,
-        port: 5432,
-      });
+     const client = new Client({
+    host: '127.0.0.1', 
+    user: 'postgres',
+    database: 'postgres',
+    password: 'Shadow12071207*',
+    port: 5432,
+  });
+
+
       client.connect(err => {
         if (err) {
           console.error('connection error', err.stack)
@@ -279,8 +296,21 @@ app.route('/oncall').post((req, res) => {
   avail = req.body.Avail;
   abs = req.body.Abs;
   oncalls = AssignOnCalls.assign(avail,abs);
+
+console.log(oncalls);
+
+  if(oncalls == []){
+
+    console.log("BRUH");
+
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({Oncalls: "ERROR"}));
+
+  } 
+  else{
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(JSON.stringify({Oncalls: oncalls}));
+  }
 
 });
 
@@ -324,14 +354,15 @@ app.route('/short').post((req, res) => {
   const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
   const values = [staff,absdate, p1, p2, p3, p4]
   
-  const client = new Client({
+    const client = new Client({
+    host: '127.0.0.1', 
+    user: 'postgres',
+    database: 'postgres',
+    password: 'Shadow12071207*',
+    port: 5432,
+  });
 
-  host: '127.0.0.1',
-  user: 'postgres',
-  database: 'SWE4103_db',
-  password: 'SWE4103',
-  port: 5432,
-});
+
   client.connect(err => {
     if (err) {
       console.error('connection error', err.stack)
@@ -368,14 +399,14 @@ app.route('/long').post((req, res) => {
   
   const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
-  const client = new Client({
-    host: '127.0.0.1',
+    const client = new Client({
+    host: '127.0.0.1', 
     user: 'postgres',
-
-    database: 'SWE4103_db',
-    password: 'SWE4103',
+    database: 'postgres',
+    password: 'Shadow12071207*',
     port: 5432,
-    });
+  });
+  
 
 
     client.connect(err => {
