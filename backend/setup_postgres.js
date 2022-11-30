@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 
 const client = new Client({
-    host: 'postgres',
+    host: '127.0.0.1',
     user: 'postgres',
     password: 'postgres',
     database: 'postgres',
@@ -33,6 +33,7 @@ const setupDatabase = async () => {
         await client.query("INSERT INTO Pathway(Pathway_ID, Pathway_Name) VALUES (DEFAULT, 'Open'), (DEFAULT, 'University/College Preparation'), (DEFAULT, 'Workplace Preparation');"); // What we have thus far
         await client.query("INSERT INTO Areas(Area_ID, Area_Name) VALUES (DEFAULT, 'Technilogical Education'), (DEFAULT, 'The Arts'), (DEFAULT, 'Guidance and Career Education');");
 
+        // Inserting test staff member data - with password encryption
         await client.query("CREATE EXTENSION pgcrypto SCHEMA public;");
         await client.query("INSERT INTO staff (staff_id, role_id, status_id, username, password, first_name, last_name, email) VALUES (DEFAULT, (SELECT role_id FROM roles WHERE role_name = 'Office Administrator'), (SELECT status_id FROM status WHERE status = 'Active'), 'oa1', crypt('password', gen_salt('md5')), 'Jane', 'Doe', 'test@unb.ca');");
         await client.query("INSERT INTO staff (staff_id, role_id, status_id, username, password, first_name, last_name, email) VALUES (DEFAULT, (SELECT role_id FROM roles WHERE role_name = 'Office Administrator'), (SELECT status_id FROM status WHERE status = 'Active'), 'oa2', crypt('password', gen_salt('md5')), 'Emily', 'Wiggins', 'test2@unb.ca');");
