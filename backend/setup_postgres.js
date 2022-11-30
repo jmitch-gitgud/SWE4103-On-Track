@@ -3,14 +3,29 @@ const { Client } = require('pg');
 const client = new Client({
     host: '127.0.0.1',
     user: 'postgres',
-    password: 'postgres',
-    database: 'postgres',
+    password: 'jordan_rocks',
+    database: 'testbase',
     port: 5432,
 });
 
 const setupDatabase = async () => {
     try {
         await client.connect();  
+
+        // Dropping old test tables from database postgres
+        await client.query("Drop Table if exists Substitute_Teacher");
+        await client.query("Drop Table if exists Schedule");
+        await client.query("Drop Table if exists Work_Absence");
+        await client.query("Drop Table if exists Courses");
+        await client.query("Drop Table if exists FullTime_Teacher");
+        await client.query("Drop Table if exists Areas");
+        await client.query("Drop Table if exists Pathway");
+        await client.query("Drop Table if exists OA");
+        await client.query("Drop Table if exists VP");
+        await client.query("Drop Table if exists Staff");
+        await client.query("Drop Table if exists Roles");
+        await client.query("Drop Table if exists Status");
+        await client.query("Drop Table if exists School");
         
         // Setting up database and tables
         await client.query("Create Table if not exists School( School_ID SERIAL PRIMARY KEY, School_Name VARCHAR(100) NOT NULL, School_Address VARCHAR(150) NOT NULL);");
@@ -22,9 +37,9 @@ const setupDatabase = async () => {
         await client.query("Create Table if not exists Pathway(Pathway_ID SERIAL PRIMARY KEY, Pathway_Name VARCHAR(50) NOT NULL);");
         await client.query("Create Table if not exists Areas(Area_ID Serial PRIMARY KEY, Area_Name VARCHAR(75) NOT NULL);");
         await client.query("Create Table if not exists FullTime_Teacher(Staff_ID integer NOT NULL PRIMARY KEY, School_ID integer NOT NULL, Teachable_Areas integer[] NOT NULL, CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID), CONSTRAINT fk_School_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
-        await client.query("Create table if not exists Courses(Course_Code VARCHAR(5) NOT NULL UNIQUE PRIMARY KEY, Course_Title VARCHAR(50) NOT NULL, Course_Area integer NOT NULL, Course_Pathway integer NOT NULL, Grade_Level integer NOT NULL);");
-        await client.query("Create table if not exists Work_Absence(Absence_ID SERIAL PRIMARY KEY, Staff_ID integer NOT NULL, Absence_Date date NOT NULL, Period1 VARCHAR(5), Period2 VARCHAR(5), Period3 VARCHAR(5), Period4 VARCHAR(5), CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
-        await client.query("Create table if not exists Schedule(Staff_ID integer NOT NULL PRIMARY KEY, Period1 VARCHAR(5), Period2 VARCHAR(5), Period3 VARCHAR(5), Period4 VARCHAR(5), CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
+        await client.query("Create Table if not exists Courses(Course_Code VARCHAR(5) NOT NULL UNIQUE PRIMARY KEY, Course_Title VARCHAR(50) NOT NULL, Course_Area integer NOT NULL, Course_Pathway integer NOT NULL, Grade_Level integer NOT NULL);");
+        await client.query("Create Table if not exists Work_Absence(Absence_ID SERIAL PRIMARY KEY, Staff_ID integer NOT NULL, Absence_Date date NOT NULL, Period1 VARCHAR(5), Period2 VARCHAR(5), Period3 VARCHAR(5), Period4 VARCHAR(5), CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
+        await client.query("Create Table if not exists Schedule(Staff_ID integer NOT NULL PRIMARY KEY, Period1 VARCHAR(5), Period2 VARCHAR(5), Period3 VARCHAR(5), Period4 VARCHAR(5), CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
         await client.query("Create Table if not exists Substitute_Teacher(Staff_ID integer NOT NULL PRIMARY KEY, Workable_Schools integer[] NOT NULL, Teachable_Areas integer[] NOT NULL, CONSTRAINT fk_Staff_ID FOREIGN KEY(Staff_ID) REFERENCES Staff(Staff_ID));");
 
         // Inserting test data
@@ -34,7 +49,7 @@ const setupDatabase = async () => {
         await client.query("INSERT INTO Areas(Area_ID, Area_Name) VALUES (DEFAULT, 'Technilogical Education'), (DEFAULT, 'The Arts'), (DEFAULT, 'Guidance and Career Education');");
 
         // Inserting test staff member data - with password encryption
-        await client.query("CREATE EXTENSION pgcrypto SCHEMA public;");
+        await client.query("CREATE EXTENSION if not exists pgcrypto SCHEMA public;");
         await client.query("INSERT INTO staff (staff_id, role_id, status_id, username, password, first_name, last_name, email) VALUES (DEFAULT, (SELECT role_id FROM roles WHERE role_name = 'Office Administrator'), (SELECT status_id FROM status WHERE status = 'Active'), 'oa1', crypt('password', gen_salt('md5')), 'Jane', 'Doe', 'test@unb.ca');");
         await client.query("INSERT INTO staff (staff_id, role_id, status_id, username, password, first_name, last_name, email) VALUES (DEFAULT, (SELECT role_id FROM roles WHERE role_name = 'Office Administrator'), (SELECT status_id FROM status WHERE status = 'Active'), 'oa2', crypt('password', gen_salt('md5')), 'Emily', 'Wiggins', 'test2@unb.ca');");
         await client.query("INSERT INTO staff (staff_id, role_id, status_id, username, password, first_name, last_name, email) VALUES (DEFAULT, (SELECT role_id FROM roles WHERE role_name = 'Vice Principal'), (SELECT status_id FROM status WHERE status = 'Active'), 'vp1', crypt('password', gen_salt('md5')), 'Jack', 'Jackson', 'test15@unb.ca');");

@@ -113,7 +113,7 @@ async function doPostRequest() {
 
     let payload = {
         Username: 'oa1',
-        Password: '$1$2yxZ/M.y$f3e.i0d7T/VyknuEgUmxl/'
+        Password: 'password'
     };
 
     let res = await axios.post('http://localhost:3001/check', payload);

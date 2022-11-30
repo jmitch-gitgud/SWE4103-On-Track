@@ -10,7 +10,7 @@ let AssignOnCalls = require("./AssignOnCalls.js");
 let tester = require("./tester.js");
 
 const listenPort = 3001;
-const db_password = 'postgres'
+const db_password = 'jordan_rocks'
 
 app.use(bodyParser.json({limit: '1mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '1mb', extended: true}))
@@ -30,7 +30,7 @@ app.route('/check').post((req, res) => {
   username = req.body.Username;
   password = req.body.Password;
 
-  const text = 'SELECT role_id FROM "public"."staff" WHERE "username" = $1 AND "password" = $2'
+  const text = 'SELECT role_id FROM "public"."staff" WHERE "username" = $1 AND "password" = crypt($2, (SELECT password from "public"."staff" where "username" = $1));'
   const values = [username, password]
   let rightPage;
 
@@ -39,7 +39,7 @@ app.route('/check').post((req, res) => {
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'postgres',
+    database: 'testbase',
     password: db_password,
     port: 5432,
   });
@@ -103,7 +103,7 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'postgres',
+    database: 'testbase',
     password: db_password,
     port: 5432,
   });
@@ -134,7 +134,7 @@ app.route('/user')
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
-    database: 'postgres',
+    database: 'testbase',
     password: db_password,
     port: 5432,
   });
@@ -221,7 +221,7 @@ app.route('/absences').get(async (req,res) => {
     const client = new Client({
         host: '127.0.0.1', 
         user: 'postgres',
-        database: 'postgres',
+        database: 'testbase',
         password: db_password,
         port: 5432,
       });
@@ -250,7 +250,7 @@ app.route('/avail').get(async (req,res) => {
     const client = new Client({
         host: '127.0.0.1', 
         user: 'postgres',
-        database: 'postgres',
+        database: 'testbase',
         password: db_password,
         port: 5432,
       });
@@ -324,7 +324,7 @@ app.route('/short').post((req, res) => {
 
   host: '127.0.0.1',
   user: 'postgres',
-  database: 'postgres',
+  database: 'testbase',
   password: db_password,
   port: 5432,
 });
@@ -366,7 +366,7 @@ app.route('/long').post((req, res) => {
   const client = new Client({
     host: '127.0.0.1',
     user: 'postgres',
-    database: 'postgres',
+    database: 'testbase',
     password: db_password,
     port: 5432,
     });
@@ -391,7 +391,6 @@ app.route('/long').post((req, res) => {
               {
                 res.writeHead(200, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({status: "inserted"}));
-                console.log(row);
                 end = -1;
               }
           }});
