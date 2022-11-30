@@ -25,7 +25,7 @@ const PORT = 3001;
 app.route('/getAbsences')
 .get((req, res, next) => {
   let staff_id = req.query.staff_id
-  const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
+  const text = 'SELECT * FROM work_absence WHERE staff_id = ' + staff_id
 
 
  const client = new Client({

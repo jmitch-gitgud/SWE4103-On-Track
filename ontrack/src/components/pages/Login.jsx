@@ -2,6 +2,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
 
 //import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 //import ShowAndHidePassword from "./show-and-hide-password/ShowAndHidePassword";
@@ -90,6 +91,7 @@ function Login() {
     const renderForm = (
       
       <div className="form">
+        
         <form onSubmit={handleSubmit}>
           <div>
             <label className="input-label">Username: </label>
@@ -100,26 +102,19 @@ function Login() {
             <div>
 
             <div class='input-label'>
-            <input  type={passwordShown ? "text" : "password"} name="pass" required placeholder="Enter your password" />
-
-
+            <input type={passwordShown ? "text" : "password"} name="pass" required placeholder="Enter your password" />
 
             <button className= "passToggle" type="button" onClick={togglePassword}><img src="https://vectorified.com/images/password-eye-icon-8.png" 
             alt="eye" width="20" height="25"></img></button>
 
-            </div>
-
-                      
-          
-           
-
+            </div>                                  
 
           </div>
             {renderErrorMessage("Invalid")}
             {renderErrorMessage("Error")}
           </div>
-          <div className="button-container">
-            <input type="submit" value="Submit"/>
+          <div className="abs-button-container">
+            <input className="login-button" type="submit" value="Sign In"/>
           </div>
         </form>
       </div>
@@ -134,10 +129,7 @@ function Login() {
   return (
     <div>
       <Header />
-      <div className="login-form">
-        <div className="login-header padding-top-64">
-          <h1>Sign In</h1>
-        </div>
+      <div className="login-form padding-top-32">
         {isSubmitted ? 
           <div className="login-success">
           

@@ -30,7 +30,7 @@ app.route('/user')
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-    password: 'Shadow12071207*',
+    password: 'postgres*',
     port: 5432,
   });
 
@@ -55,13 +55,13 @@ app.route('/user')
   
   let staff_id = req.query.staff_id
   console.log(staff_id)
-  const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
+  const text = 'SELECT * FROM work_absence WHERE staff_id = ' + staff_id
 
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-    password: 'Shadow12071207*',
+    password: 'postgres*',
     port: 5432,
   });
   

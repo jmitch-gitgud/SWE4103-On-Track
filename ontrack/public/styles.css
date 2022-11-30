@@ -9,22 +9,25 @@
   body {
     background: #eee;
     padding: 0 16px;
+    display: flex;
+    flex-direction: column;
   }
 
   .breadcrumbs {
-    font-family: 'Kanit', sans-serif;
     float: inline-start;
     border-color: rgb(255, 255, 255);        
     background-color: #05A;
     color: #fff;
     padding: 0.2rem;
   }
-  
+
   header {
-    font-family: 'Kanit', sans-serif;
-    background-color: #05A;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+    background-color: #3741A1;
     margin: auto -16px;
-    padding: 4px 32px;
+    padding: 12px 32px;
+    vertical-align: middle;
   }
   
   header h2 {
@@ -32,7 +35,6 @@
     font-weight: 200; 
     font-size: 40px;
   }
-
 
   header h3 {
     color: #fff;
@@ -46,47 +48,67 @@
   }
 
   .login-button {
-    font-family: 'Kanit', sans-serif;    
-    background-color: #05A;
+    background-color: #3741A1; 
     color: #fff;
     font-size: larger;
     width: 8rem;
     height: 2.5rem;
 
-    border-color: #05A;
+    border-color: rgb(81, 131, 240); 
     border-radius: 0.5rem;
   }
 
   .link:hover {  
     
-    color: #fff;   
+    color: rgb(81, 131, 240);   
   }
 
   .link {       
-    color: #fff; 
+    color: #3741A1; 
+    font-size: 0.9rem;
+    text-decoration: none;
+    line-height: 35px;
   }
 
+  .link-container {
+    background-color: rgb(242, 242, 242);
+    margin: auto -16px;
+    padding: 1px 32px;
+    vertical-align: center;
+  }
+
+  .link2:hover {  
+    
+    color: white; 
+  }
+
+  .link2 {       
+    color: white; 
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
 
   .logout-button {
-    font-family: 'Kanit', sans-serif;
     font-weight: 200;
-    font-size: x-large;
+    font-size: medium;
     float: right;
-    border-color:rgb(255, 255, 255);    
-    border-radius: 0.5rem;
-    border-width: 0.15rem;
-    background-color: #05A;
+    border-color:rgb(81, 131, 240);    
+    background-color: #3741A1;
+    border-radius: 4px;
     color: #fff;
-    padding: 0.2rem;
+    width: 4.5rem;
+    height: 2rem;
     margin-top: 23px;
   }
 
+  .logout-button:hover {
+    background-color: rgb(23, 23, 128)
+  }
+
   .login-button:hover {
-    background-color: rgb(1, 70, 139);
-    border-color: rgb(1, 70, 139);
+    background-color: rgb(23, 23, 128)
   }
   
-
   .error {
     padding-bottom: 1rem;
     color: red;
@@ -98,7 +120,6 @@
     color: rgb(23, 200, 23);    
     font-size: large;
   }
-
 
   .login-success {
     text-align: center;
@@ -114,8 +135,24 @@
     padding-top: 8rem;
   }
 
-  .padding-top-test {
+  .padding-top-32 {
     padding-top: 2rem;
+  }
+
+  .padding-top-24 {
+    padding-top: 1.5rem;
+  }
+
+  .padding-top-16{
+    padding-top: 1rem;
+  }
+
+  .padding-top-8{
+    padding-top: 0.5rem;
+  }
+
+  .padding-bottom-8 {
+    padding-bottom: 0.5rem;
   }
 
   .padding-bottom-16 {
@@ -129,13 +166,26 @@
   .padding-bottom-32 {
     padding-bottom: 2rem;
   }
+
+  .padding-left-16 {
+    padding-left: 1rem;
+  }
+  .padding-left-64 {
+    padding-left: 4rem;
+  }
+
+  .padding-left-128 {
+    padding-left: 8rem;
+  }
   
   footer {
-    position: absolute;
+    position: static;
     text-align: center;
     bottom: 0;
     width: 100%;
     height: 2.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
   
   footer p {
@@ -152,8 +202,6 @@
     box-shadow: 0 1px 5px rgb(138, 137, 137);
   }
 
-  
-
   form input,
   form textarea {
     width: 92%;
@@ -166,6 +214,27 @@
     margin: 1rem auto;
   }
 
+  input[type="text"] {
+    border-width: 0.005rem;
+    border-radius: 4px;
+    padding-left: 0.5rem;
+  }
+
+  input[type="password"] {
+    border-width: 0.005rem;
+    border-radius: 4px;
+    padding-left: 0.5rem;
+  }
+
+  input[type="checkbox"] {
+    color: #3741A1;
+    background-color: #3741A1;
+  }
+
+  input[type="checkbox"]:checked {
+    color: #3741A1;
+    background-color: #3741A1;
+  }
 
   .upload {
     text-align: center;
@@ -209,15 +278,19 @@
   }
   
  .passToggle{
-
-
-  float: right;
-
-  background-color: #fff;
+  
+  background: white url("https://vectorified.com/images/password-eye-icon-8.png") left no-repeat;
   padding: 0.25rem;
   margin-top: 16px; 
+  border: none;
 
  }
+
+ #funkystyling {
+
+  background: white url(/path/to/icon.png) left no-repeat;
+  padding-left: 17px;
+}
 
  .addAbs{
   display: flex;
@@ -242,11 +315,317 @@
 
  .submitAbs{
   display: flex;
-  justify-content: right;
+  justify-content: center;
   padding-top: 4rem;
  }
 
  .addAbsHeader{
   padding-top: 4rem;
   text-align: center;
+ }
+
+ .pageHeader{
+  color: #3741A1;
+  text-align: center;
+  padding-top: 2rem;
+ }
+
+ .mainHeader{
+  color: #3741A1;
+  text-align: center;
+  padding-top: 2rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 5rem;
+
+ }
+
+ .abs-button{
+
+  width: 16rem;
+  height: 2.5rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border-color: rgb(81, 131, 240);
+  color: white;
+ }
+
+ .abs-button-smaller{
+
+  width: 10rem;
+  height: 2rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border-color: rgb(81, 131, 240);
+  color: white;
+ }
+
+ .button-submit{
+  width: 6rem;
+  height: 2.5rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border-color: rgb(81, 131, 240);
+  color: white;
+ }
+
+ .abs-button:hover {
+  background-color: rgb(23, 23, 128)
+ }
+
+ .button-submit:hover {
+  background-color: rgb(23, 23, 128)
+ }
+ .abs-button-text{
+  color: white;
+  margin: auto;
+  font-weight: 600;
+  font-size: 1.1rem;
+ }
+
+ .abs-button-container{
+  font-size: 1rem;
+  font-weight: lighter;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+
+ .container-horizontal{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ }
+
+ .container-vertical{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+
+ .submit-button{
+  width: 4rem;
+  height: 2.5rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border-color: rgb(81, 131, 240);
+  color: white;
+ }
+
+ .select-teacher{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16rem;
+  height: 4.5rem;
+  text-align: center;
+  border-radius: 4px;
+  border-color: #3741A1;
+  background-color: rgb(244, 244, 244);
+  color: #3741A1;
+  font-weight: 600;
+  font-size: 1.1rem;
+ }
+
+ .select:hover {
+  background-color: rgb(245, 245, 245)
+ }
+
+ .checkbox {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #3741A1;
+  border-radius: 4px;
+  border-color: #3741A1;
+ }
+
+ .checkbox-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16rem;
+  height: 6.5rem;
+  border: 2px solid #3741A1;
+  border-radius: 4px;
+  background-color: rgb(244, 244, 244);
+  color: #3741A1;
+  font-weight: 600;
+  font-size: 1.1rem;
+ }
+
+ .select-date-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16rem;
+  height: 4.5rem;
+  text-align: center;
+  border-radius: 4px;
+  border-color: #3741A1;
+  background-color: rgb(244, 244, 244);
+  border: 2px solid #3741A1;
+  color: #3741A1;
+  font-weight: 600;
+  font-size: 1.1rem;
+ }
+
+ .teacher-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 12rem;
+  height: 1.75rem;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid black;
+  background-color: white;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #3741A1;
+ }
+
+ .teacher-container-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 12rem;
+  height: 1.75rem;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid #3741A1;
+  background-color: rgb(242, 242, 242);
+  font-weight: 400;
+  font-size: 1rem;
+  color: #3741A1;
+ }
+ .theme-text {
+  color: #3741A1;
+ }
+
+ .select-multi-dates-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16rem;
+  height: 7.5rem;
+  text-align: center;
+  border-radius: 4px;
+  border-color: #3741A1;
+  background-color: rgb(242, 242, 242);
+  border: 2px solid #3741A1;
+  color: #3741A1;
+  font-weight: 600;
+  font-size: 1.1rem;
+ }
+
+.select-date {
+  width: 12rem;
+  text-align: center;
+}
+
+.success-message {
+  align-items: center;
+  text-align: center;
+  border-radius: 4px;
+  width: 16rem;
+  height: 1.8rem;
+  color: rgb(0, 141, 54);
+  font-weight: 400;
+  background-color: rgba(2, 199, 2, 0.333);
+}
+
+.error-message {
+  align-items: center;
+  text-align: center;
+  border-radius: 4px;
+  width: 14rem;
+  height: 1.8rem;
+  color: rgb(185, 0, 0);
+  font-weight: 400;
+  background-color: rgba(212, 2, 2, 0.256);
+}
+
+.pagination-button {
+  width: 3rem;
+  height: 1.8rem;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid #3741A1;
+  background-color: rgb(242, 242, 242);
+  color: #3741A1;
+  font-weight: 500;
+}
+
+.forward {
+  float: right;
+}
+
+.abs-table {
+  width: 62rem;
+  padding-top: 1rem;
+}
+
+.file{
+  padding-top: 1rem;
+  width: 16rem;
+  text-align: center;
+  height: 2.5rem;
+  border-radius: 4px;
+  opacity: 0;
+}
+
+.uploadfiletext{
+  padding-top: 0.4rem;
+  width: 16rem;
+  height: 2.5rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border: 2px solid rgb(81, 131, 240);
+  color: white;
+  margin: auto;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.uploadfiletext:hover {
+  background-color: rgb(23, 23, 128)
+}
+
+.file-text{
+  color: grey;
+  margin: auto;
+  font-weight: 600;
+  font-size: 1.1rem;
+ }
+
+ .upload-button{
+  width: 8rem;
+  height: 2.5rem;
+  text-align: center;
+  background: #3741A1;
+  border-radius: 4px;
+  border-color: rgb(81, 131, 240);
+  color: white;
+ }
+
+ .upload-button:hover {
+  background-color: rgb(23, 23, 128);
+ }
+
+ .item {
+  display: flex;
+  flex-direction: row;
+ }
+
+ .upload-buffer {
+  width: 2rem;
+ }
+
+ .want-to {
+  font-size: 1.3rem;
+  color: rgb(155, 155, 155)
  }

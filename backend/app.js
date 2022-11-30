@@ -8,11 +8,9 @@ let ReportWorkAbsences = require("./ReportWorkAbsences.js");
 let GetSheetNames = require("./GetSheetNames.js");
 let AssignOnCalls = require("./AssignOnCalls.js");
 let tester = require("./tester.js");
-const { builtinModules } = require("module");
-
 
 const listenPort = 3001;
-const db_password = 'SWE4103'
+const db_password = 'postgres'
 
 app.use(bodyParser.json({limit: '1mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '1mb', extended: true}))
@@ -32,7 +30,7 @@ app.route('/check').post((req, res) => {
   username = req.body.Username;
   password = req.body.Password;
 
-  const text = 'SELECT role_id FROM "public"."staff" WHERE "username" = $1 AND "password" = $2'
+  const text = 'SELECT role_id FROM "public"."staff" WHERE "username" = $1 AND "password" = crypt($2, (SELECT password from "public"."staff" where "username" = $1));'
   const values = [username, password]
   let rightPage;
 
@@ -42,7 +40,11 @@ app.route('/check').post((req, res) => {
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
+<<<<<<< HEAD
     password: 'Shadow12071207*',
+=======
+    password: db_password,
+>>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
     port: 5432,
   });
 
@@ -118,7 +120,11 @@ app.route('/user')
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
+<<<<<<< HEAD
     password: 'Shadow12071207*',
+=======
+    password: db_password,
+>>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
     port: 5432,
   });
 
@@ -142,14 +148,18 @@ app.route('/user')
 .post((req, res, next) => {
   
   let staff_id = req.query.staff_id
-  const text = 'SELECT * FROM work_abscense WHERE staff_id = ' + staff_id
+  const text = 'SELECT * FROM work_absense WHERE staff_id = ' + staff_id
 
     
    const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
+<<<<<<< HEAD
     password: 'Shadow12071207*',
+=======
+    password: db_password,
+>>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
     port: 5432,
   });
   
@@ -233,8 +243,9 @@ app.route('/SendTerm').post((req, res) => {
 }) ;
 
 app.route('/absences').get(async (req,res) => {
-  const text = "SELECT * FROM work_abscense NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
+  const text = "SELECT * FROM work_absence NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
 
+<<<<<<< HEAD
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
@@ -244,6 +255,15 @@ app.route('/absences').get(async (req,res) => {
   });
 
 
+=======
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'postgres',
+        password: db_password,
+        port: 5432,
+      });
+>>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
       client.connect(err => {
         if (err) {
           console.error('connection error', err.stack)
@@ -266,6 +286,7 @@ app.route('/avail').get(async (req,res) => {
 
 
 
+<<<<<<< HEAD
      const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
@@ -275,6 +296,15 @@ app.route('/avail').get(async (req,res) => {
   });
 
 
+=======
+    const client = new Client({
+        host: '127.0.0.1', 
+        user: 'postgres',
+        database: 'postgres',
+        password: db_password,
+        port: 5432,
+      });
+>>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
       client.connect(err => {
         if (err) {
           console.error('connection error', err.stack)
@@ -351,7 +381,7 @@ app.route('/short').post((req, res) => {
   }
 
 
-  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
+  const text = 'INSERT INTO work_absence(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
   const values = [staff,absdate, p1, p2, p3, p4]
   
     const client = new Client({
@@ -363,6 +393,15 @@ app.route('/short').post((req, res) => {
   });
 
 
+<<<<<<< HEAD
+=======
+  host: '127.0.0.1',
+  user: 'postgres',
+  database: 'postgres',
+  password: db_password,
+  port: 5432,
+});
+>>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
   client.connect(err => {
     if (err) {
       console.error('connection error', err.stack)
@@ -381,39 +420,44 @@ app.route('/short').post((req, res) => {
   })
 }); 
 
+
 app.route('/long').post((req, res) => {
   staff = req.body.Staff;
   startDate = new Date(req.body.StartDate);
   endDate = new Date(req.body.EndDate);
-  count = 0;
   end = 0;
   values = [];
-  while (startDate < endDate)
-  {
-    value = [staff, startDate, "A", "A", "A", "A"];  
+  for (var d = new Date(req.body.StartDate); d <= new Date(req.body.EndDate); d.setDate(d.getDate() + 1)) {
+    date = new Date(d);
+    value = [staff, date, "A", "A", "A", "A"];  
     values.push(value);
-    count++;
-    startDate = getDay(startDate);
   }
 
   
-  const text = 'INSERT INTO work_abscense(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
+  
+  const text = 'INSERT INTO work_absence(absence_id, staff_id, absence_date, period1, period2, period3, period4) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)';
     
     const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
+<<<<<<< HEAD
     password: 'Shadow12071207*',
     port: 5432,
   });
   
 
 
+=======
+    password: db_password,
+    port: 5432,
+    });
+>>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
     client.connect(err => {
       if (err) {
         console.error('connection error', err.stack)
       } else {
-      
+      //console.log('connected')
         values.forEach(row => {
           client.query(text, row, (err, pgres) => {
             if (err) {
@@ -430,7 +474,6 @@ app.route('/long').post((req, res) => {
               {
                 res.writeHead(200, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({status: "inserted"}));
-                console.log(row);
                 end = -1;
               }
           }});
@@ -440,12 +483,4 @@ app.route('/long').post((req, res) => {
   
   
 }); 
-
-function getDay(d)
-{
-  d = new Date(d);
-  var date = new Date();
-  date.setDate(d.getDate() + 1);
-  return date;
-}
 

@@ -49,7 +49,8 @@ function GenOncalls(){
         <div>
             <Header />
             <p></p>
-            <button onClick={onSubmit}>Generate Oncalls</button>
+            <button className="abs-button-smaller" onClick={onSubmit}>
+              Generate Oncalls</button>
             <p></p>
             <Table striped bordered hover>
               <thead>
@@ -73,7 +74,9 @@ function GenOncalls(){
                 })}
               </tbody>
             </Table>
+            <div className="padding-top-128">
             <Footer />
+            </div>
         </div>
     );
 }
