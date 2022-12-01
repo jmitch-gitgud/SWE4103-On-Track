@@ -54,7 +54,7 @@ test('Adding a Single-Day Absence', async () => {
 
     let payload = {
         AbsDate: '2023-01-01',
-        Staff: 69,
+        Staff: 1,
         P1: true,
         P2: false,
         P3: false,
@@ -117,8 +117,8 @@ async function doPostRequest() {
 
     let payload = {
 
-        Username: 'user1000',
-        Password: 'pass1000'
+        Username: 'oa1',
+        Password: 'password'
     };
 
     let res = await axios.post('http://localhost:3001/check', payload);
