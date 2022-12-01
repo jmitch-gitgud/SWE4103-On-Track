@@ -40,11 +40,8 @@ app.route('/check').post((req, res) => {
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-<<<<<<< HEAD
     password: 'Shadow12071207*',
-=======
-    password: db_password,
->>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
+
     port: 5432,
   });
 
@@ -55,8 +52,6 @@ app.route('/check').post((req, res) => {
       //console.log('connected')
       client.query(text, values, (err, pgres) => {
 
-
-
         if (err) {
           console.log(err.stack)
       
@@ -64,13 +59,6 @@ app.route('/check').post((req, res) => {
           res.end(JSON.stringify({status: "ERROR"}));
         } else {
           if (pgres.rowCount === 0) {
-
-
-
-
-            console.log("INVALID check");
-
-
 
           res.writeHead(404, { "Content-Type": "application/json" });
           res.end(JSON.stringify({status: "Invalid credentials"}));
@@ -120,11 +108,8 @@ app.route('/user')
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-<<<<<<< HEAD
     password: 'Shadow12071207*',
-=======
-    password: db_password,
->>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
+
     port: 5432,
   });
 
@@ -155,11 +140,8 @@ app.route('/user')
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-<<<<<<< HEAD
     password: 'Shadow12071207*',
-=======
-    password: db_password,
->>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
+
     port: 5432,
   });
   
@@ -170,9 +152,6 @@ app.route('/user')
       } else {
         client.query(text, (err, pgres) => {
           if (err) {
-
-            console.log("INVALID user");
-
               res.writeHead(404, { "Content-Type": "application/json" });
               res.end(JSON.stringify({status: "Invalid credentials"}));
           } else {
@@ -245,7 +224,7 @@ app.route('/SendTerm').post((req, res) => {
 app.route('/absences').get(async (req,res) => {
   const text = "SELECT * FROM work_absence NATURAL JOIN staff WHERE absence_date = CURRENT_DATE";
 
-<<<<<<< HEAD
+
   const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
@@ -255,15 +234,6 @@ app.route('/absences').get(async (req,res) => {
   });
 
 
-=======
-    const client = new Client({
-        host: '127.0.0.1', 
-        user: 'postgres',
-        database: 'postgres',
-        password: db_password,
-        port: 5432,
-      });
->>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
       client.connect(err => {
         if (err) {
           console.error('connection error', err.stack)
@@ -286,7 +256,6 @@ app.route('/avail').get(async (req,res) => {
 
 
 
-<<<<<<< HEAD
      const client = new Client({
     host: '127.0.0.1', 
     user: 'postgres',
@@ -296,16 +265,6 @@ app.route('/avail').get(async (req,res) => {
   });
 
 
-=======
-    const client = new Client({
-        host: '127.0.0.1', 
-        user: 'postgres',
-        database: 'postgres',
-        password: db_password,
-        port: 5432,
-      });
->>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
-      client.connect(err => {
         if (err) {
           console.error('connection error', err.stack)
         } else {
@@ -327,11 +286,9 @@ app.route('/oncall').post((req, res) => {
   abs = req.body.Abs;
   oncalls = AssignOnCalls.assign(avail,abs);
 
-console.log(oncalls);
+
 
   if(oncalls == []){
-
-    console.log("BRUH");
 
     res.writeHead(500, { "Content-Type": "application/json" });
     res.end(JSON.stringify({Oncalls: "ERROR"}));
@@ -393,15 +350,6 @@ app.route('/short').post((req, res) => {
   });
 
 
-<<<<<<< HEAD
-=======
-  host: '127.0.0.1',
-  user: 'postgres',
-  database: 'postgres',
-  password: db_password,
-  port: 5432,
-});
->>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
   client.connect(err => {
     if (err) {
       console.error('connection error', err.stack)
@@ -441,18 +389,13 @@ app.route('/long').post((req, res) => {
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-<<<<<<< HEAD
+
     password: 'Shadow12071207*',
     port: 5432,
   });
   
 
 
-=======
-    password: db_password,
-    port: 5432,
-    });
->>>>>>> b0846d1eee39076c2e425fcb09aa910829a03781
     client.connect(err => {
       if (err) {
         console.error('connection error', err.stack)
