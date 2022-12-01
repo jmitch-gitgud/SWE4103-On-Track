@@ -37,6 +37,7 @@ test( <'INSERT TEST NAME HERE'>, async() => {
 
 const axios = require('axios');
 const app = require('../app');
+const { Client } = require('pg');
 
 
 // ========= VERY BASIC EXAMPLE (no external function call) =============
