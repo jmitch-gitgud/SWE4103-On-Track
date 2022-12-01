@@ -105,10 +105,6 @@ async function genOncalls(){
 }
 
 // === TEST for Role Assignment, '/check' endpoint ===
-
-
-
-
 test('Testing Role Assignment - OA', async () => {
     await expect(doPostRequest()).resolves.toStrictEqual({ "page": "/oa", "status": "Logged in" });
 });
@@ -126,3 +122,32 @@ async function doPostRequest() {
     let data = res.data;
     return data;
 }
+
+// === TEST Checks General Password Encryption (Whether Password has been Ecrypted) ===
+test('Test Encrypting Passwords', () => {
+    const client = new Client({
+        host: '127.0.0.1',
+        user: 'postgres',
+        password: 'postgres',
+        database: 'postgres',
+        port: 5432,
+    });
+
+    const text = 'SELECT password FROM "public"."staff" WHERE "username" = \'oa1\';'
+
+    
+    client.connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          client.query(text, (err, pgres) => {
+    
+            if (err) {
+              console.log(err.stack)
+            } else {
+                expect(pgres.password).not.toEqual("password")
+            }
+            });
+          }
+      })
+});
