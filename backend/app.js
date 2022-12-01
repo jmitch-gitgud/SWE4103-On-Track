@@ -40,7 +40,7 @@ app.route('/check').post((req, res) => {
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-    password: 'Shadow12071207*',
+    password: db_password,
 
     port: 5432,
   });
@@ -108,7 +108,7 @@ app.route('/user')
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-    password: 'Shadow12071207*',
+    password: db_password,
 
     port: 5432,
   });
@@ -140,7 +140,7 @@ app.route('/user')
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-    password: 'Shadow12071207*',
+    password: db_password,
 
     port: 5432,
   });
@@ -229,7 +229,7 @@ app.route('/absences').get(async (req,res) => {
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-    password: 'Shadow12071207*',
+    password: db_password,
     port: 5432,
   });
 
@@ -260,7 +260,7 @@ app.route('/avail').get(async (req,res) => {
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-    password: 'Shadow12071207*',
+    password: db_password,
     port: 5432,
   });
 
@@ -278,8 +278,7 @@ app.route('/avail').get(async (req,res) => {
             }
             });
               }
-      })
-});
+      });
 
 app.route('/oncall').post((req, res) => {
   avail = req.body.Avail;
@@ -345,7 +344,7 @@ app.route('/short').post((req, res) => {
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-    password: 'Shadow12071207*',
+    password: db_password,
     port: 5432,
   });
 
@@ -389,8 +388,7 @@ app.route('/long').post((req, res) => {
     host: '127.0.0.1', 
     user: 'postgres',
     database: 'postgres',
-
-    password: 'Shadow12071207*',
+    password: db_password,
     port: 5432,
   });
   

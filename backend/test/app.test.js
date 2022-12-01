@@ -126,10 +126,3 @@ async function doPostRequest() {
     let data = res.data;
     return data;
 }
-
-
-
-
-
-
-
